@@ -177,6 +177,18 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--paper-2);padding:
 .note b{color:var(--ink)}
 .note p{max-width:none}
 
+/* 저장소 링크 */
+.repo-link{display:block;margin:32px 0 0;padding:20px 22px;text-decoration:none;
+  border:1px solid var(--accent-dim);background:var(--field);
+  transition:border-color .15s,background .15s}
+.repo-link:hover{border-color:var(--accent);background:var(--paper-2)}
+.rl-tag{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.rl-name{display:block;font-family:var(--f-mono);font-size:15px;font-weight:700;
+  color:var(--ink);margin-bottom:8px;word-break:break-all}
+.repo-link:hover .rl-name{color:var(--accent)}
+.rl-desc{display:block;font-size:14px;color:var(--ink-2);line-height:1.6;max-width:62ch}
+
 /* 기여 표 */
 .tbl{margin:26px 0 0;overflow-x:auto;border:1px solid var(--rule-soft)}
 table{border-collapse:collapse;width:100%;min-width:440px;font-size:13.5px}
@@ -306,6 +318,12 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         실전 투입 전 감사에서 두 에이전트가 독립적으로 찾은 최상위 결함이 <strong>알고 보니 같은 근본 원인</strong>이었던 적이 있는데,
         따로 도달한 결론은 신뢰도가 다릅니다. 반대로 한쪽만 지적한 항목은 우선 의심합니다.
       </p>
+
+      <a class="repo-link" href="https://github.com/bosung2000/ai-dev-harness" rel="noopener">
+        <span class="rl-tag">공개 저장소</span>
+        <span class="rl-name">github.com/bosung2000/ai-dev-harness</span>
+        <span class="rl-desc">이 체계를 문서와 실행 가능한 도구로 정리해 공개했습니다. 커밋 전 API 키를 자동 차단하는 검사기와 훅은 그대로 복사해 쓰실 수 있습니다.</span>
+      </a>
     </section>
 
     <!-- 02 LLM -->
@@ -574,7 +592,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         <p style="margin:0"><b>단독 개발</b> — FrozenOlaf · Alpha-Redline AI · FrozenStudio(매매 성과를 콘텐츠로 만들어 SNS에 게시하는 Python 파이프라인). 설계부터 구현·검증까지 전부 제 작업입니다.</p>
         <p style="margin:12px 0 0"><b>공동 개발</b> — TradingAi_Ver01은 2인 프로젝트입니다. 저는 <b>UI·차트를 제외한 설계와 로직</b>을 맡았고, ML·LLM 모듈은 단독으로 작성했습니다. 차트 렌더링은 동료의 영역이라 제 실적에 포함하지 않았습니다.</p>
         <p style="margin:12px 0 0"><b>AI 활용</b> — 위 코드는 Claude Code를 도구로 사용해 작성했습니다. 숨길 이유가 없다고 생각합니다. 다만 <b>설계 결정·검증 방법·기각 판단은 전부 제가 내렸고</b>, 이 문서에 적힌 발견들은 대부분 AI가 내놓은 결과를 제가 의심해서 나온 것입니다. 어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</p>
-        <p style="margin:12px 0 0"><b>소스 공개</b> — 상용화를 전제로 비공개입니다. 구조·설계 결정·검증 근거는 요청 시 상세히 설명드리며, 필요하면 코드 리뷰 자리를 만들 수 있습니다.</p>
+        <p style="margin:12px 0 0"><b>소스 공개</b> — 프로젝트 소스는 상용화를 전제로 비공개이고, 일부는 공동 소유라 단독으로 공개할 수 없습니다. 대신 <b>영업비밀이 아닌 개발 체계는 <a href="https://github.com/bosung2000/ai-dev-harness" rel="noopener" style="color:var(--accent)">공개 저장소</a>로 정리해 두었습니다.</b> 그 외 구조·설계 결정·검증 근거는 요청 시 상세히 설명드리며, 화면 공유로 코드 리뷰 자리를 만들 수 있습니다.</p>
       </div>
     </section>
 
