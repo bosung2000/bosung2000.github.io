@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>고보성 — AI 시스템 엔지니어링 · 금융 도메인</title>
+<meta name="description" content="LLM 파이프라인, 금융 ML, AI 에이전트 운용 체계. AI가 만든 결과를 검증하는 구조를 설계합니다. 5개월 · 28.8만 줄 · 단독 및 공동 개발 4개 시스템." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+<style>
+/* ── 토큰 ───────────────────────────────── */
+:root{
+  --paper:#F5F6F7; --paper-2:#EDEFF1; --ink:#191B1F; --ink-2:#3D424A;
+  --muted:#6B7280; --rule:#D5D9DE; --rule-soft:#E3E6EA;
+  --accent:#A32B26; --accent-dim:#C4736E;
+  --cool:#2C5FA8; --cool-dim:#7C9BC7; --field:#FFFFFF;
+  --f-display:"Noto Serif KR","Apple SD Gothic Neo",serif;
+  --f-body:"Pretendard Variable",Pretendard,-apple-system,"Segoe UI","Malgun Gothic",sans-serif;
+  --f-mono:"JetBrains Mono","D2Coding",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#121417;--paper-2:#191C21;--ink:#E6E8EA;--ink-2:#B4BAC2;--muted:#858C97;
+    --rule:#2B3038;--rule-soft:#22262C;--accent:#E06A61;--accent-dim:#8E4540;
+    --cool:#6D9EDC;--cool-dim:#3E5B85;--field:#0C0E11;}
+}
+:root[data-theme="dark"]{--paper:#121417;--paper-2:#191C21;--ink:#E6E8EA;--ink-2:#B4BAC2;--muted:#858C97;
+  --rule:#2B3038;--rule-soft:#22262C;--accent:#E06A61;--accent-dim:#8E4540;
+  --cool:#6D9EDC;--cool-dim:#3E5B85;--field:#0C0E11;}
+:root[data-theme="light"]{--paper:#F5F6F7;--paper-2:#EDEFF1;--ink:#191B1F;--ink-2:#3D424A;--muted:#6B7280;
+  --rule:#D5D9DE;--rule-soft:#E3E6EA;--accent:#A32B26;--accent-dim:#C4736E;
+  --cool:#2C5FA8;--cool-dim:#7C9BC7;--field:#FFFFFF;}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);
+  font-size:16px;line-height:1.65}
+a{color:inherit}
+h1,h2,h3{text-wrap:balance;margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.shell{display:grid;grid-template-columns:1fr}
+@media(min-width:1060px){.shell{grid-template-columns:186px minmax(0,1fr);gap:56px}}
+
+.index{display:none}
+@media(min-width:1060px){.index{display:block;position:sticky;top:0;align-self:start;
+  height:100vh;padding:96px 0 40px;border-right:1px solid var(--rule-soft)}}
+.index ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.index a{display:flex;gap:10px;text-decoration:none;padding:5px 12px;
+  font-size:13px;color:var(--muted);border-left:2px solid transparent;
+  transition:color .15s,border-color .15s}
+.index a:hover{color:var(--ink)}
+.index a.on{color:var(--ink);border-left-color:var(--accent);font-weight:600}
+.index .n{font-family:var(--f-mono);font-size:11px;opacity:.65;padding-top:2px}
+
+section{padding:72px 0;border-top:1px solid var(--rule-soft)}
+.eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h2{font-family:var(--f-display);font-weight:600;font-size:clamp(24px,3.4vw,33px);
+  line-height:1.3;letter-spacing:-.01em}
+h3{font-family:var(--f-body);font-weight:700;font-size:17px;letter-spacing:-.005em}
+.lede{font-size:17px;color:var(--ink-2);max-width:64ch;margin:16px 0 0}
+p{margin:14px 0 0;max-width:66ch}
+strong{font-weight:700}
+.hi{color:var(--accent);font-weight:700}
+code{font-family:var(--f-mono);font-size:.9em;background:var(--paper-2);padding:1px 5px;border-radius:2px}
+
+/* 헤더 */
+.masthead{padding:88px 0 0}
+.stamp{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--accent);padding:5px 11px;border-radius:2px}
+.stamp::before{content:"";width:5px;height:5px;background:var(--accent);border-radius:50%}
+.masthead h1{font-family:var(--f-display);font-weight:700;letter-spacing:-.025em;
+  font-size:clamp(32px,5.8vw,58px);line-height:1.14}
+.masthead h1 em{font-style:normal;color:var(--accent)}
+.sub{font-size:19px;color:var(--ink-2);max-width:62ch;margin:22px 0 0;line-height:1.6}
+.contact{display:flex;flex-wrap:wrap;gap:0 28px;margin:30px 0 0;font-family:var(--f-mono);font-size:13px}
+.contact a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px}
+.contact a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.who{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);margin:14px 0 0}
+
+.figures{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule-soft);
+  border:1px solid var(--rule-soft);margin:50px 0 0}
+@media(min-width:720px){.figures{grid-template-columns:repeat(4,1fr)}}
+.fig{background:var(--paper);padding:20px 18px}
+.fig dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fig dd{margin:8px 0 0;font-family:var(--f-mono);font-variant-numeric:tabular-nums;
+  font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.fig dd span{font-size:14px;font-weight:500;color:var(--muted);margin-left:3px}
+
+/* 목록 */
+.findings{list-style:none;margin:26px 0 0;padding:0}
+.findings li{display:grid;grid-template-columns:24px 1fr;gap:14px;padding:15px 0;
+  border-bottom:1px solid var(--rule-soft);max-width:none}
+.findings li:first-child{border-top:1px solid var(--rule-soft)}
+.findings .mk{font-family:var(--f-mono);font-size:10.5px;font-weight:700;color:var(--accent);padding-top:4px}
+.findings b{display:block;font-size:14.5px;font-weight:700;margin-bottom:3px}
+.findings span{display:block;font-size:14px;color:var(--ink-2);line-height:1.6}
+
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0;font-family:var(--f-mono);font-size:11.5px}
+.stack b{padding:3px 9px;background:var(--paper-2);color:var(--ink-2);font-weight:500;border-radius:2px}
+
+/* 셀 그리드 */
+.grid2{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule-soft);
+  border:1px solid var(--rule-soft);margin:32px 0 0}
+@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
+.cell{background:var(--paper);padding:24px 22px}
+.cell h3{font-size:15px;margin-bottom:9px}
+.cell p{font-size:14px;margin:0;color:var(--ink-2)}
+.cell .k{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:32px;font-weight:700;
+  letter-spacing:-.02em;line-height:1;color:var(--accent);display:block;margin-bottom:12px}
+.cell .k small{font-size:13px;color:var(--muted);font-weight:500;margin-left:4px;letter-spacing:0}
+
+/* 코드 흐름 */
+.flow{margin:32px 0 0;border:1px solid var(--rule);background:var(--field);
+  font-family:var(--f-mono);font-size:12.5px;line-height:1.85;overflow-x:auto}
+.flow pre{margin:0;padding:22px 24px;white-space:pre;color:var(--ink-2)}
+.flow pre b{color:var(--accent);font-weight:700}
+.flow pre i{color:var(--cool);font-style:normal}
+
+/* 프로젝트 */
+.proj{border-top:1px solid var(--rule);padding:44px 0 0;margin:44px 0 0}
+.proj:first-of-type{margin-top:34px}
+.proj-head{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.proj-head{grid-template-columns:minmax(0,1fr) 250px;gap:44px}}
+.proj-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px}
+.proj-title h3{font-family:var(--f-display);font-weight:600;font-size:23px;letter-spacing:-.015em}
+.tag{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid var(--rule);color:var(--muted);border-radius:2px;white-space:nowrap}
+.tag.solo{color:var(--accent);border-color:var(--accent-dim)}
+.tag.duo{color:var(--cool);border-color:var(--cool-dim)}
+.meta{border-top:1px solid var(--rule-soft)}
+.meta div{display:flex;justify-content:space-between;gap:14px;padding:7px 0;
+  border-bottom:1px solid var(--rule-soft);font-size:12.5px}
+.meta dt{color:var(--muted);font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;flex:none}
+.meta dd{margin:0;text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:12.5px}
+
+/* 감사 막대 */
+.audit{margin:32px 0 0;border-top:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:1fr;gap:6px 20px;padding:18px 0;border-bottom:1px solid var(--rule-soft)}
+@media(min-width:820px){.row{grid-template-columns:196px 1fr 128px;align-items:baseline}}
+.row .label{font-size:13.5px;font-weight:600;line-height:1.45}
+.row .label small{display:block;font-weight:400;color:var(--muted);font-size:12px;
+  font-family:var(--f-mono);margin-top:3px}
+.bar{position:relative;height:22px;background:var(--rule-soft);overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;display:block;animation:grow .9s cubic-bezier(.2,.7,.3,1) both}
+@keyframes grow{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+.bar.b-void i{background:repeating-linear-gradient(135deg,var(--cool-dim) 0 5px,transparent 5px 10px);
+  border-right:2px solid var(--cool)}
+.bar.b-true i{background:var(--accent)}
+.bar.b-fix i{background:var(--accent);opacity:.62}
+.row .val{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:15px;font-weight:700}
+@media(min-width:820px){.row .val{text-align:right}}
+.row .val small{display:block;font-weight:400;font-size:11.5px;color:var(--muted);margin-top:2px}
+
+.pullquote{margin:38px 0 0;padding:22px 0 22px 24px;border-left:3px solid var(--accent);
+  font-family:var(--f-display);font-size:19px;line-height:1.55;color:var(--ink);max-width:60ch}
+.pullquote cite{display:block;margin-top:12px;font-family:var(--f-mono);font-size:11.5px;
+  font-style:normal;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+
+/* 스킬 */
+.skills{margin:30px 0 0;border-top:1px solid var(--rule)}
+.skills > div{display:grid;grid-template-columns:1fr;gap:4px 24px;padding:16px 0;
+  border-bottom:1px solid var(--rule-soft)}
+@media(min-width:700px){.skills > div{grid-template-columns:150px 1fr;align-items:baseline}}
+.skills dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.skills dd{margin:0;font-size:14.5px;line-height:1.7}
+
+.note{margin:32px 0 0;padding:20px 22px;border:1px solid var(--rule);background:var(--paper-2);
+  font-size:13.5px;color:var(--ink-2);line-height:1.7}
+.note b{color:var(--ink)}
+.note p{max-width:none}
+
+/* 기여 표 */
+.tbl{margin:26px 0 0;overflow-x:auto;border:1px solid var(--rule-soft)}
+table{border-collapse:collapse;width:100%;min-width:440px;font-size:13.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule-soft)}
+th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;background:var(--paper-2)}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right}
+tr:last-child td{border-bottom:0}
+td .me{color:var(--accent);font-weight:700}
+
+footer{padding:52px 0 88px;border-top:1px solid var(--rule);margin-top:72px}
+footer .fl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:baseline}
+footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+
+.tt{position:fixed;top:16px;right:16px;z-index:20;background:var(--paper);
+  border:1px solid var(--rule);color:var(--muted);font-family:var(--f-mono);font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:2px;cursor:pointer}
+.tt:hover{color:var(--ink);border-color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<button class="tt" id="tt" type="button" aria-label="화면 테마 전환">테마</button>
+
+<div class="wrap"><div class="shell">
+
+  <nav class="index" aria-label="목차">
+    <ol>
+      <li><a href="#harness" class="on"><span class="n">01</span>AI 개발 체계</a></li>
+      <li><a href="#llm"><span class="n">02</span>LLM 파이프라인</a></li>
+      <li><a href="#ml"><span class="n">03</span>금융 ML</a></li>
+      <li><a href="#system"><span class="n">04</span>시스템 설계</a></li>
+      <li><a href="#audit"><span class="n">05</span>데이터 검증</a></li>
+      <li><a href="#stack"><span class="n">06</span>기술 스택</a></li>
+      <li><a href="#scope"><span class="n">07</span>기여 범위</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <header class="masthead">
+      <span class="stamp">AI 시스템 엔지니어링 · 금융 도메인</span>
+      <h1>AI에게 코드를 시키는 일과<br /><em>AI를 운용하는 일</em>은<br />다른 문제입니다.</h1>
+      <p class="sub">
+        LLM 파이프라인과 금융 ML을 설계하고, <strong>AI가 내놓은 결과를 자동으로 반증하는 구조</strong>를 만듭니다.
+        5개월간 4개 시스템에 28.8만 줄을 작성했는데, 그중 상당 부분은 코드가 아니라
+        <strong>같은 실수를 두 번 하지 않게 만드는 체계</strong>였습니다.
+      </p>
+      <p class="who">고보성 · 2000년생 · 서울</p>
+      <div class="contact">
+        <a href="mailto:gobosung2000@gmail.com">gobosung2000@gmail.com</a>
+        <a href="https://github.com/bosung2000" rel="noopener">github.com/bosung2000</a>
+      </div>
+
+      <dl class="figures">
+        <div class="fig"><dt>작성 코드</dt><dd>287,994<span>줄</span></dd></div>
+        <div class="fig"><dt>커밋</dt><dd>1,162<span>회</span></dd></div>
+        <div class="fig"><dt>설계 문서</dt><dd>381<span>건</span></dd></div>
+        <div class="fig"><dt>기간</dt><dd>5<span>개월</span></dd></div>
+      </dl>
+    </header>
+
+    <!-- 01 AI 개발 체계 -->
+    <section id="harness">
+      <p class="eyebrow">01 — AI 개발 체계</p>
+      <h2>하네스(Harness) — 코드를 쓰기 전에 읽히는 체크리스트</h2>
+      <p class="lede">
+        AI는 지난주에 무엇이 잘못됐는지 기억하지 못합니다.
+        그래서 <strong>기억해야 할 것을 파일로 만들고, 작업 종류를 감지하면 자동으로 읽히게</strong> 했습니다.
+        "차트 지표를 추가해줘"라고 말하면 12단계 절차와 과거 결함 5종이 함께 따라옵니다.
+      </p>
+
+      <div class="flow">
+<pre>작업 요청 감지
+  │
+  ├─ <b>1. 트리거 매칭</b>   키워드 → 해당 도메인 하네스 문서 자동 로드
+  │                    <i>"OCX를 다루는 화면"이면 키움 하네스가 반드시 동반</i>
+  │
+  ├─ <b>2. 계획</b>         분해 · 의존성 · 위험 식별
+  │                    <i>사용자 승인 전에는 코드를 건드리지 않음</i>
+  │
+  ├─ <b>3. 구현</b>         테스트 우선 (RED → GREEN → 리팩토링)
+  │
+  ├─ <b>4. 교차 검토</b>     code-reviewer · security-reviewer 병렬 실행
+  │                    <i>서로 모르는 상태로 같은 코드를 보게 함</i>
+  │
+  ├─ <b>5. 배선 검증</b>     순수 함수 테스트로는 못 잡는 결함 —
+  │                    <i>콜백을 일부러 끊고 정확히 1건만 실패하는지 실측</i>
+  │
+  └─ <b>6. 박제</b>         재발 가능한 결함이면 하네스·규칙으로 승격
+                       <i>"이번만 예외"로 넘기지 않는다</i>
+</pre>
+      </div>
+
+      <div class="grid2">
+        <div class="cell">
+          <span class="k">16<small>종</small></span>
+          <h3>작업 유형별 하네스</h3>
+          <p>화면 추가, 버튼, 리스트, 팝업, 드래그-드롭, 백그라운드 서비스, 키움 OCX 호스팅, 전략 엔진까지. 각 문서가 <strong>절차 + 골격 코드 + 과거에 실제로 터진 결함 목록</strong>을 갖습니다. 작업 후 항목별로 통과 여부를 검증합니다.</p>
+        </div>
+        <div class="cell">
+          <span class="k">20<small>종</small></span>
+          <h3>역할별 서브에이전트</h3>
+          <p>계획·아키텍처·디버깅·보안·DB·테스트·빌드오류로 역할을 나눠 직접 정의했습니다. 프로젝트 전용 5종은 <strong>그 프로젝트에서만 통하는 함정</strong>을 압니다 — 키움 OCX 규칙 검사기, WPF 빌더 등.</p>
+        </div>
+        <div class="cell">
+          <span class="k">50<small>개</small></span>
+          <h3>영구 메모리</h3>
+          <p>세션이 끊겨도 남는 지식 파일. 결론만이 아니라 <strong>기각된 시도와 그 이유</strong>를 같이 적습니다. "이 방법은 개선율 −69.8%로 실패했다"가 성공 기록보다 자주 쓰입니다.</p>
+        </div>
+        <div class="cell">
+          <span class="k">17<small>조</small></span>
+          <h3>위반 시 중단 규칙</h3>
+          <p>권고가 아니라 <strong>어기면 작업을 멈추는</strong> 규칙입니다. 전부 실제로 사고가 난 뒤 승격된 항목이고, 상당수는 사람이 지키는 대신 <strong>테스트와 빌드 스크립트가 차단</strong>합니다.</p>
+        </div>
+      </div>
+
+      <blockquote class="pullquote">
+        순수 함수는 전부 통과하는데 배선만 끊긴 사고가 하루에 세 번 났습니다.
+        그래서 테스트를 셋으로 나눴습니다 — 순수 로직, 끝에서 끝까지 배선,
+        그리고 <strong>일부러 코드를 망가뜨려 테스트가 실제로 잡는지 확인하는 것.</strong>
+        <cite>— 배선 테스트를 도입한 이유</cite>
+      </blockquote>
+
+      <p>
+        에이전트를 여러 개 띄워 <strong>사실 검토 / 시니어 리뷰 / 보안 / 일관성 / 중복</strong> 각각의 관점으로 같은 코드를 보게 하는 방식도 씁니다.
+        실전 투입 전 감사에서 두 에이전트가 독립적으로 찾은 최상위 결함이 <strong>알고 보니 같은 근본 원인</strong>이었던 적이 있는데,
+        따로 도달한 결론은 신뢰도가 다릅니다. 반대로 한쪽만 지적한 항목은 우선 의심합니다.
+      </p>
+    </section>
+
+    <!-- 02 LLM -->
+    <section id="llm">
+      <p class="eyebrow">02 — LLM 파이프라인</p>
+      <h2>공시 원문으로 답하는 종목 분석 AI</h2>
+      <p class="lede">
+        미국 SEC 공시(10-K / 10-Q)를 근거로 질문에 답하는 시스템입니다.
+        <strong>수집 → LLM 압축 → 청킹 → 임베딩 → 검색 → 답변 생성</strong> 전 구간을 직접 설계했고,
+        핵심은 모델을 고르는 일이 아니라 <strong>모델이 틀렸을 때 그것을 어떻게 아느냐</strong>였습니다.
+      </p>
+
+      <article class="proj" style="margin-top:32px">
+        <div class="proj-head">
+          <div>
+            <div class="proj-title">
+              <h3>Alpha-Redline AI</h3>
+              <span class="tag solo">단독 개발 123/123</span>
+              <span class="tag">Gemini · RAG</span>
+            </div>
+            <p>구독형 미국 주식 분석 서비스를 목표로 설계했습니다. 도메인·애플리케이션·인프라를 분리한 계층 구조에, 목적별로 나눈 <strong>프롬프트 7종</strong>(압축 · 차이 분석 · 인사이트 · 리스크 · 종합 · 어조 · 대화)을 코드로 관리합니다.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>기간</dt><dd>2026.03 — 2026.07</dd></div>
+            <div><dt>커밋</dt><dd>123 / 123</dd></div>
+            <div><dt>코드</dt><dd>+35,646줄</dd></div>
+            <div><dt>문서</dt><dd>47건</dd></div>
+          </dl>
+        </div>
+
+        <ol class="findings">
+          <li><span class="mk">▸</span><div>
+            <b>LLM에 전부 맡기지 않는 하이브리드 파서</b>
+            <span>재무 수치는 HTML 테이블 파싱을 1차로 두고, <strong>누락된 항목만 LLM 보충 패스</strong>로 채웁니다. 비용과 환각을 동시에 줄이는 구조입니다. 한국 DART는 XBRL 표준계정ID가 있어 <strong>LLM 파싱이 아예 불필요</strong>하다는 것도 확인해서, 같은 문제에 다른 해법을 적용했습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>LLM 출력을 회계 항등식으로 검증</b>
+            <span>추출된 수치가 <strong>자산 = 부채 + 자본</strong>을 만족하는지 교차 확인합니다. 계정을 잘못 매핑하면 오차가 100% 단위로 튀기 때문에 즉시 걸립니다. 실제로 이 검증이 <strong>자본총계 대신 총자산을 읽던 결함</strong>을 잡았습니다 — <code>LIKE '%자본총계%'</code>가 <code>부채와자본총계</code>에 걸린 경우였습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>프롬프트에도 테스트를 붙였습니다</b>
+            <span>프롬프트는 코드가 아니라는 이유로 검증 밖에 놓이기 쉽습니다. 필수 경고 문구가 빠지지 않았는지, 지시가 서로 충돌하지 않는지를 <strong>단위 테스트로 고정</strong>했습니다. 프롬프트를 수정하다 안전 문구를 지우는 사고를 구조적으로 막습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>파이프라인 전체 정독 리뷰 · 결함 12건 문서화</b>
+            <span>돌아가는 코드를 처음부터 끝까지 다시 읽어 <strong>HIGH 3 · MED 4 · 잠복 5</strong>를 목록화했습니다. 가장 위험한 건 임베딩 차원이 안 맞을 때 유사도 함수가 <strong>예외도 로그도 없이 0을 반환</strong>하는 부분 — 모델을 교체하면 검색이 조용히 전멸합니다. 같은 코드가 3개 저장소에 복제돼 있다는 사실까지 확인해 "한 곳만 고치면 재발한다"를 문서에 박았습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>API 한도·비용 설계</b>
+            <span>섹션별 토큰 예산, 보일러플레이트 제거, 키 이중화(429/503 시 백업 키 자동 폴백), 수집 로그 기반 재개 — <strong>이미 받은 건 API 호출 자체를 하지 않습니다.</strong> 이 설계로 DART 재무 27,729건을 한도에 한 번도 걸리지 않고 완주했습니다(421만 행).</span>
+          </div></li>
+        </ol>
+        <div class="stack"><b>C# / .NET</b><b>Google Gemini API</b><b>임베딩 · 벡터 검색</b><b>청킹 전략</b><b>프롬프트 엔지니어링</b><b>SEC EDGAR</b><b>DART OpenAPI</b><b>SQLite · Dapper</b><b>xUnit</b></div>
+      </article>
+    </section>
+
+    <!-- 03 ML -->
+    <section id="ml">
+      <p class="eyebrow">03 — 금융 ML</p>
+      <h2>확률을 내놓는 것보다<br />그 확률을 믿어도 되는지 재는 일</h2>
+      <p class="lede">
+        전략 신호의 성공 확률을 예측하는 LightGBM 모델과, 그 예측이 실제로 맞는지 검증하는 진단 도구를 만들었습니다.
+        금융 시계열은 데이터 누수가 나기 쉬워서 <strong>일반적인 교차검증을 쓰면 성능이 부풀려집니다.</strong>
+      </p>
+
+      <ol class="findings">
+        <li><span class="mk">▸</span><div>
+          <b>CPCV — 누수를 막는 교차검증</b>
+          <span>학습·검증 구간이 시간적으로 겹치면 미래 정보가 새어 들어옵니다. <strong>Combinatorial Purged Cross-Validation</strong>으로 구간을 조합하고 경계를 소거해 이를 차단했습니다. 레짐 라벨(강세/약세)과 섹터 층화를 함께 적용해, <strong>특정 시장 국면에서만 통하는 모델</strong>을 골라냅니다.</span>
+        </div></li>
+        <li><span class="mk">▸</span><div>
+          <b>캘리브레이션 — "70%"가 정말 70%인가</b>
+          <span>모델이 0.7이라고 말할 때 실제로 70%가 맞는지를 <strong>reliability diagram과 Brier score</strong>로 측정합니다. 예측 확률이 실제 빈도와 어긋나면 그 숫자로 포지션 크기를 정할 수 없습니다. 시간 구간(60봉/240봉)과 목표(승리 / 2R 도달 / 손절 히트)별로 나눠 리포트를 생성합니다.</span>
+        </div></li>
+        <li><span class="mk">▸</span><div>
+          <b>특성 수를 늘려도 좋아지지 않는다는 것을 실측</b>
+          <span>25개 · 26개 · 30개 특성 조합으로 각각 리포트를 뽑아 비교했습니다. <strong>ablation study</strong>로 특성을 하나씩 빼보고, <strong>SHAP</strong>으로 기여도를 확인하고, 상관행렬로 중복 특성을 찾았습니다. 결과를 근거로 특성 집합을 결정했습니다.</span>
+        </div></li>
+        <li><span class="mk">▸</span><div>
+          <b>C# ↔ Python 사이드카 구조</b>
+          <span>학습 데이터는 C#에서 내보내고(<code>HtfTrainingDataExporter</code>), 학습·추론은 Python이 맡고, <strong>FastAPI 추론 서버</strong>로 다시 붙입니다. 언어를 억지로 통일하지 않고 <strong>각 생태계가 잘하는 일을 시켰습니다</strong> — ML은 Python, 실시간 매매는 C#.</span>
+        </div></li>
+      </ol>
+      <div class="stack"><b>Python 3,554줄</b><b>LightGBM</b><b>scikit-learn</b><b>SHAP</b><b>pandas · numpy</b><b>FastAPI · uvicorn</b><b>pytest</b><b>matplotlib</b></div>
+
+      <div class="note">
+        <p style="margin:0"><b>이 영역은 2인 프로젝트 안에 있지만 ML·LLM 모듈은 제가 단독으로 작성했습니다</b> — <code>ml/</code> 17커밋 중 17건, <code>Filings.Pro/</code> 19커밋 중 19건이 제 커밋입니다. 반대로 차트 렌더링 엔진은 동료가 주도한 영역이라 제 실적으로 넣지 않았습니다.</p>
+      </div>
+    </section>
+
+    <!-- 04 시스템 -->
+    <section id="system">
+      <p class="eyebrow">04 — 시스템 설계</p>
+      <h2>파는 물건으로 만들기</h2>
+      <p class="lede">
+        혼자 쓰는 도구와 남에게 파는 제품은 요구가 다릅니다.
+        고객마다 전략이 다르고, 알고리즘은 디컴파일로 새고, 잘못된 주문 한 번이 실제 돈을 잃습니다.
+      </p>
+
+      <article class="proj">
+        <div class="proj-head">
+          <div>
+            <div class="proj-title">
+              <h3>FrozenOlaf</h3>
+              <span class="tag solo">단독 개발 644/659</span>
+              <span class="tag">상용화 진행</span>
+            </div>
+            <p>키움증권 OpenAPI 기반 한국 주식 자동매매 시스템. 2020년에 직접 만들어 <strong>실제 계좌로 운용했던 반자동 프로그램</strong>을, 완전 무인 자동매매 + 판매 가능한 제품으로 재설계하고 있습니다.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>기간</dt><dd>2026.06 — 진행 중</dd></div>
+            <div><dt>커밋</dt><dd>644 / 659</dd></div>
+            <div><dt>코드</dt><dd>+161,795줄</dd></div>
+            <div><dt>문서</dt><dd>91건</dd></div>
+          </dl>
+        </div>
+        <ol class="findings">
+          <li><span class="mk">▸</span><div>
+            <b>전략 교체가 가능한 프레임워크 구조</b>
+            <span>고객 전략을 <strong>DLL 하나로 끼우면 본체 수정 없이</strong> 동작하도록 계약 인터페이스를 분리했습니다. "계약 표면 = 고객 진입점의 전이 폐포"로 경계를 정의해, 어디까지가 공개 API이고 어디부터가 내부인지를 명확히 했습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>알고리즘 유출 방지를 빌드로 강제</b>
+            <span>전략 로직이 판매본 DLL에 섞이면 디컴파일로 노출됩니다. <strong>어셈블리를 8개로 쪼개고 DTO 경계 + 참조 방향 + 빌드 구성</strong> 3겹으로 막았습니다. 사람이 조심하는 대신 <strong>빌드 스크립트가 위반을 차단</strong>합니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>실계좌 진입 전 하드닝 감사</b>
+            <span>독립된 관점으로 전수 감사해 CRITICAL 4건을 잡았습니다. 그중 하나는 <strong>비상 정지 스위치가 신규 매수뿐 아니라 청산까지 막고 있던 것</strong> — 위험할 때 팔지도 못하게 되는 결함이었습니다. 청산은 방어 주문으로 분류해 폭주 방지 게이트에서 면제하도록 고쳤습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>거래 안전장치</b>
+            <span>매도 초과 주문 방지(매도가능수량 소비 모델), 동시호가 시각 계단 처리, 미체결 자동 취소, 재시작 시 보유종목 실시간 구독 유실 복구, dead-man's switch. <strong>실시간 구독 100종목 물리 상한</strong>이라는 제약에서 출발해 유니버스를 먼저 좁히는 구조로 재설계했습니다.</span>
+          </div></li>
+        </ol>
+        <div class="stack"><b>C# / .NET Framework 4.7.2 (x86)</b><b>.NET 8</b><b>WPF · MVVM · DI</b><b>키움 OpenAPI (COM/OCX)</b><b>SQLite</b><b>MS Access</b><b>Telegram Bot</b><b>xUnit</b></div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-head">
+          <div>
+            <div class="proj-title">
+              <h3>TradingAi_Ver01</h3>
+              <span class="tag duo">2인 공동 개발 365/695</span>
+              <span class="tag">WPF · .NET 8</span>
+            </div>
+            <p>미국 주식 트레이딩 플랫폼. <strong>UI·차트를 제외한 설계와 로직</strong>을 담당했습니다 — 도메인 Core, AI·ML 모듈, 데이터 파이프라인, 문서 체계. 지표·전략·드로잉 도구를 <strong>플러그인 구조</strong>로 설계해 신규 추가가 "구현 1클래스 + 등록 1줄"로 끝나게 만들었습니다.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>기간</dt><dd>2026.04 — 2026.07</dd></div>
+            <div><dt>커밋</dt><dd>365 / 695</dd></div>
+            <div><dt>코드</dt><dd>+87,377줄</dd></div>
+            <div><dt>문서</dt><dd>226건</dd></div>
+          </dl>
+        </div>
+        <ol class="findings">
+          <li><span class="mk">▸</span><div>
+            <b>회귀 결함을 기억이 아니라 검출로 막기</b>
+            <span>같은 유형의 버그가 반복되자 <strong>"세 곳 동시 수정"을 테스트로 강제</strong>했습니다. 옵션을 하나 추가하면 저장·복원·렌더 세 곳에 결선해야 하는데, 빠뜨리면 리플렉션 회귀 테스트가 잡습니다. 빌드는 통과하는데 런타임에만 조용히 실패하는 종류를 겨냥한 장치입니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>Gemini 배치 분류</b>
+            <span>종목 3,000개를 배치 10 × 동시 3으로 처리해 테마·촉매·실적 요약을 생성합니다. 키 이중화와 재시도 헬퍼로 무료 등급 한도 안에서 운용했습니다.</span>
+          </div></li>
+        </ol>
+        <div class="stack"><b>C# / .NET 8</b><b>WPF · CommunityToolkit.Mvvm</b><b>Gemini API</b><b>Yahoo Finance</b><b>SQLite</b><b>플러그인 아키텍처</b></div>
+      </article>
+    </section>
+
+    <!-- 05 데이터 검증 -->
+    <section id="audit">
+      <p class="eyebrow">05 — 데이터 검증</p>
+      <h2>제 백테스트 수익률을<br />제 손으로 1,322%에서 397%로 내렸습니다.</h2>
+      <p class="lede">
+        전략을 튜닝해서 올린 숫자가 아니라, <strong>데이터가 거짓말하고 있다는 것을 찾아내서 내린</strong> 숫자입니다.
+        AI가 만든 결과를 검증하는 일과 데이터가 만든 결과를 검증하는 일은 같은 근육을 씁니다.
+      </p>
+
+      <div class="audit">
+        <div class="row">
+          <div class="label">최초 측정값<small>운영 DB · 1,321종목</small></div>
+          <div class="bar b-void"><i style="width:100%"></i></div>
+          <div class="val">+1,322.9%<small>MDD 16.2%</small></div>
+        </div>
+        <div class="row">
+          <div class="label">생존편향 제거 후<small>KRX 전수 · 3,211종목</small></div>
+          <div class="bar b-true"><i style="width:30%"></i></div>
+          <div class="val">+397.3%<small>MDD 41.9%</small></div>
+        </div>
+        <div class="row">
+          <div class="label">청산 규칙 재설계 후<small>손절 1% · 재검증</small></div>
+          <div class="bar b-fix"><i style="width:93.8%"></i></div>
+          <div class="val">+1,241.3%<small>MDD 27.9%</small></div>
+        </div>
+      </div>
+
+      <ol class="findings">
+        <li><span class="mk">01</span><div>
+          <b>표본에 살아남은 종목만 있었습니다</b>
+          <span>2016년 기준 실제 2,065종목 중 데이터베이스에는 1,321개뿐 — <strong class="hi">783종목(38%) 누락</strong>이었고 누락분 상위가 전부 상장폐지 종목이었습니다. KRX 공식 API를 <strong>종목이 아니라 날짜축으로</strong> 호출하도록 수집기를 다시 짜서, 916만 행·3,669종목·<strong>폐지 종목 863개가 구조적으로 자동 포함</strong>되게 만들었습니다.</span>
+        </div></li>
+        <li><span class="mk">02</span><div>
+          <b>못 판 주식을 아예 세지 않고 있었습니다</b>
+          <span>엔진이 마지막 봉에서 미청산 포지션을 버렸습니다. 실측 <strong>339건 평균 −12.34%</strong>. 오래 물릴수록 청산이 안 나오므로, 버리면 <strong>손실만 골라서 사라집니다.</strong></span>
+        </div></li>
+        <li><span class="mk">03</span><div>
+          <b>검증 지표가 나빠지는 게 개선인 경우</b>
+          <span>보정 잔여 이상치가 48건 → 2,259건으로 늘었는데 그게 옳은 방향이었습니다. 전에 깨끗했던 이유는 <strong>상장폐지 폭락을 자본변동으로 오인해 지우고 있었기</strong> 때문입니다. 이 지표를 최소화하려 들면 정확히 반대로 갑니다.</span>
+        </div></li>
+        <li><span class="mk">04</span><div>
+          <b>수익 2배가 실력인지 운인지 측정</b>
+          <span>집중 투자가 분산보다 수익 2배로 나왔을 때 <strong>부트스트랩(종목 풀 70% 랜덤 추출 40회)</strong>으로 분포를 만들었습니다. 초과수익은 전부 상위 10%에서 나왔고 <strong>하위 10%는 1%도 개선되지 않았습니다</strong> — 운이었습니다. 단일 실행값으로는 운을 가릴 수 없습니다.</span>
+        </div></li>
+        <li><span class="mk">05</span><div>
+          <b>실패한 방법을 지우지 않고 남겼습니다</b>
+          <span>수정주가 보정을 세 번 시도해 두 번 실패했습니다(개선율 −17.5% · −69.8%). 세 번째 방법이 통과한 뒤에도 <strong>실패한 둘을 코드 주석과 문서에 재현 가능하게 보존</strong>했습니다. 나중에 같은 아이디어가 그럴듯해 보일 때 다시 시도하는 것을 막기 위해서입니다.</span>
+        </div></li>
+      </ol>
+
+      <blockquote class="pullquote">
+        “보수적인 쪽으로 틀리면 안전하다”는 것은 착각이었습니다.
+        상장폐지를 전부 0원으로 처리하면 합병으로 사라진 우량주를 산 전략이 부당하게 벌점을 받습니다.
+        <strong>어느 방향이든 오차는 순위를 바꿉니다.</strong>
+        <cite>— 폐지 손실 모델링 과정에서</cite>
+      </blockquote>
+    </section>
+
+    <!-- 06 스택 -->
+    <section id="stack">
+      <p class="eyebrow">06 — 기술 스택</p>
+      <h2>쓸 수 있는 것</h2>
+      <dl class="skills">
+        <div><dt>AI · LLM</dt><dd>Google Gemini API · 임베딩 기반 RAG · 청킹 전략 · 프롬프트 엔지니어링(목적별 분리 · 프롬프트 단위 테스트) · 토큰 예산 설계 · 출력 검증층 · 키 이중화와 폴백</dd></div>
+        <div><dt>ML</dt><dd>LightGBM · scikit-learn · CPCV(누수 방지 교차검증) · 확률 캘리브레이션(Brier · reliability) · SHAP · ablation study · FastAPI 추론 서버</dd></div>
+        <div><dt>AI 개발 운용</dt><dd>Claude Code 서브에이전트 정의 · 훅 · 커스텀 스킬 · 트리거 기반 문서 라우팅 · 하네스 체계 설계 · 다중 에이전트 교차 검증</dd></div>
+        <div><dt>언어</dt><dd>C# (.NET 8 / .NET Framework 4.7.2) · Python · SQL</dd></div>
+        <div><dt>애플리케이션</dt><dd>WPF · MVVM · 의존성 주입 · 플러그인 아키텍처 · WinForms · COM/OCX 상호운용 · 어셈블리 경계 설계</dd></div>
+        <div><dt>데이터</dt><dd>SQLite · Dapper · MS Access(Jet OLEDB) · 스키마 마이그레이션 · 900만 행 규모 수집 파이프라인 · PIT(시점 정합) 데이터 설계</dd></div>
+        <div><dt>외부 연동</dt><dd>키움 OpenAPI · KRX OpenAPI · DART OpenAPI · SEC EDGAR · Yahoo Finance · Telegram Bot</dd></div>
+        <div><dt>테스트</dt><dd>xUnit · FluentAssertions · pytest · 배선(end-to-end) 테스트 · 뮤테이션 실측 · 리플렉션 회귀 가드</dd></div>
+        <div><dt>도메인</dt><dd>증권 매매 체결·주문 흐름 · 백테스트 엔진 설계 · 생존편향/룩어헤드 제거 · 상장폐지 손실 모델링 · 수정주가 보정 · 재무제표(XBRL) 구조 · 포트폴리오 자본 시뮬레이션</dd></div>
+      </dl>
+    </section>
+
+    <!-- 07 기여 범위 -->
+    <section id="scope">
+      <p class="eyebrow">07 — 기여 범위</p>
+      <h2>어디까지가 제 작업인지</h2>
+      <p class="lede">포트폴리오에서 가장 검증하기 어려운 부분이라 수치로 먼저 밝혀 둡니다.</p>
+
+      <div class="tbl">
+        <table>
+          <thead><tr><th>프로젝트</th><th>영역</th><th>내 커밋</th><th>전체</th><th>내 코드</th></tr></thead>
+          <tbody>
+            <tr><td>FrozenOlaf</td><td>전체</td><td class="n"><span class="me">644</span></td><td class="n">659</td><td class="n">+161,795</td></tr>
+            <tr><td>Alpha-Redline AI</td><td>전체</td><td class="n"><span class="me">123</span></td><td class="n">123</td><td class="n">+35,646</td></tr>
+            <tr><td>TradingAi_Ver01</td><td>ML (Python)</td><td class="n"><span class="me">17</span></td><td class="n">17</td><td class="n">3,554줄</td></tr>
+            <tr><td>TradingAi_Ver01</td><td>LLM 모듈</td><td class="n"><span class="me">19</span></td><td class="n">19</td><td class="n">—</td></tr>
+            <tr><td>TradingAi_Ver01</td><td>Core 로직</td><td class="n"><span class="me">152</span></td><td class="n">251</td><td class="n">—</td></tr>
+            <tr><td>TradingAi_Ver01</td><td>차트 엔진</td><td class="n">19</td><td class="n">102</td><td class="n">동료 주도</td></tr>
+            <tr><td>FrozenStudio</td><td>전체</td><td class="n"><span class="me">30</span></td><td class="n">30</td><td class="n">+3,176</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <p style="margin:0"><b>단독 개발</b> — FrozenOlaf · Alpha-Redline AI · FrozenStudio(매매 성과를 콘텐츠로 만들어 SNS에 게시하는 Python 파이프라인). 설계부터 구현·검증까지 전부 제 작업입니다.</p>
+        <p style="margin:12px 0 0"><b>공동 개발</b> — TradingAi_Ver01은 2인 프로젝트입니다. 저는 <b>UI·차트를 제외한 설계와 로직</b>을 맡았고, ML·LLM 모듈은 단독으로 작성했습니다. 차트 렌더링은 동료의 영역이라 제 실적에 포함하지 않았습니다.</p>
+        <p style="margin:12px 0 0"><b>AI 활용</b> — 위 코드는 Claude Code를 도구로 사용해 작성했습니다. 숨길 이유가 없다고 생각합니다. 다만 <b>설계 결정·검증 방법·기각 판단은 전부 제가 내렸고</b>, 이 문서에 적힌 발견들은 대부분 AI가 내놓은 결과를 제가 의심해서 나온 것입니다. 어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</p>
+        <p style="margin:12px 0 0"><b>소스 공개</b> — 상용화를 전제로 비공개입니다. 구조·설계 결정·검증 근거는 요청 시 상세히 설명드리며, 필요하면 코드 리뷰 자리를 만들 수 있습니다.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="fl">
+        <p>고보성 · AI 시스템 엔지니어링 · 금융 도메인</p>
+        <p><a href="mailto:gobosung2000@gmail.com" style="color:inherit">gobosung2000@gmail.com</a></p>
+      </div>
+    </footer>
+
+  </main>
+</div></div>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('tt'), saved=null;
+  try{ saved=localStorage.getItem('theme'); }catch(e){}
+  if(saved) root.setAttribute('data-theme',saved);
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    if(!cur) cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('theme',next); }catch(e){}
+  });
+  var links=Array.prototype.slice.call(document.querySelectorAll('.index a'));
+  var secs=links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var i=secs.indexOf(e.target); if(i<0) return;
+        links.forEach(function(l){ l.classList.remove('on'); });
+        links[i].classList.add('on');
+      });
+    },{rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){ if(s) io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
