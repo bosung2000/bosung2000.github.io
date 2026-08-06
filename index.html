@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>고보성 — AI 시스템 엔지니어링 · 금융 도메인</title>
-<meta name="description" content="LLM 파이프라인, 금융 ML, AI 에이전트 운용 체계. AI가 만든 결과를 검증하는 구조를 설계합니다. 5개월 · 28.8만 줄 · 단독 및 공동 개발 4개 시스템." />
+<meta name="description" content="LLM 파이프라인, 금융 ML, 실시간 관제, AI 에이전트 운용 체계. AI가 만든 결과를 검증하는 구조를 설계합니다. 5개월 · 31.1만 줄 · 단독 및 공동 개발 5개 시스템." />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -177,6 +177,23 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--paper-2);padding:
 .note b{color:var(--ink)}
 .note p{max-width:none}
 
+/* 화면 캡처 */
+.shots{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule-soft);
+  border:1px solid var(--rule-soft);margin:30px 0 0}
+@media(min-width:860px){.shots.two{grid-template-columns:1fr 1fr}}
+figure.shot{margin:0;background:var(--paper);padding:14px}
+figure.shot img{display:block;width:100%;height:auto;border:1px solid var(--rule-soft);background:var(--field)}
+figure.shot figcaption{margin:10px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.6}
+figure.shot figcaption b{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+
+/* 무엇을 만들었나 */
+.what{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:9px}
+.what li{position:relative;padding-left:19px;font-size:14.5px;color:var(--ink-2);
+  line-height:1.62;max-width:66ch}
+.what li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+.what li b{color:var(--ink);font-weight:700}
+
 /* 저장소 링크 */
 .repo-link{display:block;margin:32px 0 0;padding:20px 22px;text-decoration:none;
   border:1px solid var(--accent-dim);background:var(--field);
@@ -218,12 +235,13 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
   <nav class="index" aria-label="목차">
     <ol>
       <li><a href="#harness" class="on"><span class="n">01</span>AI 개발 체계</a></li>
-      <li><a href="#llm"><span class="n">02</span>LLM 파이프라인</a></li>
-      <li><a href="#ml"><span class="n">03</span>금융 ML</a></li>
-      <li><a href="#system"><span class="n">04</span>시스템 설계</a></li>
-      <li><a href="#audit"><span class="n">05</span>데이터 검증</a></li>
-      <li><a href="#stack"><span class="n">06</span>기술 스택</a></li>
-      <li><a href="#scope"><span class="n">07</span>기여 범위</a></li>
+      <li><a href="#realtime"><span class="n">02</span>실시간 관제</a></li>
+      <li><a href="#llm"><span class="n">03</span>LLM 파이프라인</a></li>
+      <li><a href="#ml"><span class="n">04</span>금융 ML</a></li>
+      <li><a href="#system"><span class="n">05</span>시스템 설계</a></li>
+      <li><a href="#audit"><span class="n">06</span>데이터 검증</a></li>
+      <li><a href="#stack"><span class="n">07</span>기술 스택</a></li>
+      <li><a href="#scope"><span class="n">08</span>기여 범위</a></li>
     </ol>
   </nav>
 
@@ -234,7 +252,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       <h1>AI에게 코드를 시키는 일과<br /><em>AI를 운용하는 일</em>은<br />다른 문제입니다.</h1>
       <p class="sub">
         LLM 파이프라인과 금융 ML을 설계하고, <strong>AI가 내놓은 결과를 자동으로 반증하는 구조</strong>를 만듭니다.
-        5개월간 4개 시스템에 28.8만 줄을 작성했는데, 그중 상당 부분은 코드가 아니라
+        5개월간 5개 시스템에 31.1만 줄을 작성했는데, 그중 상당 부분은 코드가 아니라
         <strong>같은 실수를 두 번 하지 않게 만드는 체계</strong>였습니다.
       </p>
       <p class="who">고보성 · 2000년생 · 서울</p>
@@ -244,9 +262,9 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </div>
 
       <dl class="figures">
-        <div class="fig"><dt>작성 코드</dt><dd>287,994<span>줄</span></dd></div>
-        <div class="fig"><dt>커밋</dt><dd>1,162<span>회</span></dd></div>
-        <div class="fig"><dt>설계 문서</dt><dd>381<span>건</span></dd></div>
+        <div class="fig"><dt>작성 코드</dt><dd>311,313<span>줄</span></dd></div>
+        <div class="fig"><dt>커밋</dt><dd>1,202<span>회</span></dd></div>
+        <div class="fig"><dt>설계 문서</dt><dd>393<span>건</span></dd></div>
         <div class="fig"><dt>기간</dt><dd>5<span>개월</span></dd></div>
       </dl>
     </header>
@@ -326,9 +344,129 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </a>
     </section>
 
-    <!-- 02 LLM -->
+    <!-- 02 실시간 관제 -->
+    <section id="realtime">
+      <p class="eyebrow">02 — 실시간 관제 시스템</p>
+      <h2>먼저, 열어서 확인하실 수 있는<br />프로젝트 하나</h2>
+      <p class="lede">
+        아래에 이어지는 금융 작업물은 상용화를 전제로 비공개라 설명으로만 드릴 수 있습니다.
+        그래서 <strong>코드를 그대로 열어보실 수 있는 시스템</strong>을 하나 공개해 두었습니다.
+        전국 매장의 센서 1,000대를 실시간으로 받아 저장하고 이상을 판정해 화면에 띄우는 관제 시스템입니다.
+        도메인은 금융이 아니지만 <strong>초당 수천 건이 쏟아질 때 무엇이 먼저 무너지는가</strong>는 시세 데이터와 같은 문제입니다.
+      </p>
+
+      <article class="proj">
+        <div class="proj-head">
+          <div>
+            <div class="proj-title">
+              <h3>IoTSensorDashboard</h3>
+              <span class="tag solo">단독 개발 40/40</span>
+              <span class="tag">소스 공개</span>
+            </div>
+            <p>전국 매장 20곳의 출입구에 <strong>드나드는 사람을 세는 센서 1,000대</strong>가 붙어 있다고 가정한 시스템입니다. 들어온 수와 나간 수를 따로 받아 지금 매장 안에 몇 명이 있는지를 냅니다. <strong>센서가 보내는 순간부터 관제 화면에 뜨기까지 다섯 단계 전부</strong>를 하나의 프로그램 묶음으로 만들었습니다.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>기간</dt><dd>2026.08</dd></div>
+            <div><dt>커밋</dt><dd>40 / 40</dd></div>
+            <div><dt>코드</dt><dd>+23,319줄</dd></div>
+            <div><dt>테스트</dt><dd>377건</dd></div>
+            <div><dt>문서</dt><dd>12건</dd></div>
+          </dl>
+        </div>
+
+        <h3 style="margin-top:34px">무엇을 만들었나</h3>
+
+        <div class="flow">
+<pre><b>센서 1,000대</b>  <i>매장 20곳 출입구 · 들어옴(in)과 나감(out)을 따로 보고한다</i>
+  │
+  ▼
+<b>MQTT 브로커</b>  <i>메시지를 받아 나눠주는 우체국. 외부 서버 없이 앱 안에 넣었다</i>
+  │
+  ▼
+<b>수집</b>        같은 사건이 두 번 오면 한 건으로 접고, 시각·값이 이상하면 격리한다
+  │
+  ▼
+<b>저장</b>        SQLite · 묶어서 쓰기 · 오래된 건 요약본으로 접고 지운다
+  │
+  ▼
+<b>판정</b>        조용해진 센서 · 불가능한 값 · 권한 · 알림을 어디까지 올릴지
+  │
+  ├─ <b>대시보드</b>   매장별 상태와 추이를 한 화면에 (패널 10장)
+  ├─ <b>관제실</b>     지금 이 순간 파이프라인이 어디까지 소화하는지
+  └─ <b>센서팜</b>     센서 1,000대 개별 상태 + <i>부하를 직접 만들어 던지는 발생기</i>
+</pre>
+        </div>
+
+        <ul class="what">
+          <li><b>센서가 말을 멈추면 알아챕니다.</b> 값이 안 오는 것과 값이 이상한 것은 다른 사고라서 따로 판정합니다. 센서마다 발신 주기가 달라 <b>주기를 관측해 기준을 스스로 맞춥니다</b> — 고정 기준을 두면 느린 센서가 매번 고장으로 잡힙니다.</li>
+          <li><b>있을 수 없는 값은 격리합니다.</b> 문 하나로 1초에 수천 명이 들어올 수는 없습니다. 그런 값은 <b>버리는 게 아니라 따로 세어 둡니다</b> — 지운 것과 걸러낸 것은 다르게 취급해야 나중에 원인을 찾습니다.</li>
+          <li><b>알림을 단계로 올립니다.</b> 한 번 튄 값과 10분째 응답 없는 센서를 같은 무게로 알리면 아무도 안 봅니다. 담당자 → 관리자 → 비상으로 올라가고, 복구되면 내려옵니다.</li>
+          <li><b>오래된 데이터는 스스로 접습니다.</b> 원본을 영원히 두면 디스크가 먼저 죽습니다. 시간이 지나면 분·시간 단위 요약으로 접고, 더 지나면 지우고, 빈 공간을 회수합니다.</li>
+          <li><b>부하를 직접 만들어 던질 수 있게 했습니다.</b> 발신 속도를 <b>현실(분당 1건) · 정상(17/s) · 빠름(500/s) · 폭주(5,000/s) · 극한(20,000/s)</b> 로 눌러서 바꾸고, 이상치도 주입합니다. <b>아래 발견들은 전부 이 발생기로 재현한 것</b>입니다.</li>
+        </ul>
+
+        <div class="shots two">
+          <figure class="shot">
+            <img src="img/iot-controlroom.png" alt="관제실 화면 — 파이프라인 처리 현황과 감지 피드" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>관제실</b>센서 → 수집 큐 → 저장 → 중복 접음 → 화면까지, 각 단계가 지금 몇 건을 안고 있는지를 그대로 보여줍니다. 아래 <strong>「중복 접음 0」이 01번 결함을 5초 만에 드러낸 그 카운터</strong>입니다. 처리 지연 108.5µs · 백로그 0.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/iot-dashboard.png" alt="대시보드 화면 — 매장별 상태 패널" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>대시보드</b>매장별 유입·유출과 현재 체류 인원, 본사–본부–매장 계통도, 가동률, 상위 센서, 최근 사건을 한 화면에 모았습니다. <strong>「이번 세션」·「전체 기간」처럼 기준을 라벨에 적어둔 것이 04번 결함을 고친 결과</strong>입니다.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/iot-sensorfarm.png" alt="센서팜 화면 — 센서 1,000대 타일 격자와 부하 발생기" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>센서팜</b>센서 1,000대를 타일 하나씩으로 그립니다. 상단 버튼으로 <strong>발신 속도를 현실부터 극한(20,000/s)까지 바꾸고 이상치를 주입</strong>합니다. 실측 발신량과 유실 건수가 아래에 붙습니다.</figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:40px">그래서 무엇을 발견했나</h3>
+        <p style="color:var(--ink-2);font-size:14.5px">돌아가는 것까지는 어렵지 않았습니다. <strong>부하를 올리자 전부 여기서 갈렸습니다.</strong></p>
+
+        <ol class="findings">
+          <li><span class="mk">01</span><div>
+            <b>수신은 되는데 저장이 0 — 그런데 아무 흔적도 없었습니다</b>
+            <span>센서는 보내고 있고 화면의 수신 건수도 오르는데, 저장만 되지 않았습니다. 대기열도 0, 폐기도 0이라 <strong>어디로 샜는지 단서가 없었습니다.</strong> 원인은 <strong>버려진 게 아니라 접힌 것</strong>이었습니다 — 처리 주기가 밀리면 한 주기에 같은 센서를 두 번 세게 되고, 그러면 <strong>같은 센서·같은 밀리초</strong>가 만들어져 중복 방지 규칙이 전부 하나로 합쳐버립니다. 유실을 막으려고 넣은 장치가 유실을 만들고 있었습니다. 한 주기에 명부를 한 바퀴까지만 돌도록 상한을 걸어 <strong class="hi">중복 22,426건 → 0건, 저장량 +25%</strong>.</span>
+          </div></li>
+          <li><span class="mk">02</span><div>
+            <b>추측으로 두 번 헛짚고, 진단을 먼저 만들어 5초 만에 찾았습니다</b>
+            <span>위 문제를 고친 방법입니다. 화면의 정합성 표시가 <strong>"중복으로 접은 건수"를 보고 있지 않아서</strong>, 시스템이 스스로 "유실 0 · 정상"이라고 말하고 있었습니다. 코드를 고치는 대신 <strong>그 숫자를 화면에 올리자 원인이 즉시 드러났습니다.</strong> 재현 조건이 까다로워 세 번 만에 잡았는데, 앞의 두 번이 실패한 이유는 같았습니다 — <strong>화면 없이 검증했습니다.</strong> 거기엔 UI가 없으니 "화면이 멈춘다"가 재현될 리 없었습니다.</span>
+          </div></li>
+          <li><span class="mk">03</span><div>
+            <b>한 번은 무해한 호출이, 초당 수천 번이면 흉기입니다</b>
+            <span>화면이 매 프레임 "이 센서 살아있나?"를 물었고, 그 호출이 잠금을 잡았는데 <strong>같은 잠금을 수집 쪽이 쓰고 있었습니다.</strong> 화면 한 장이 프레임당 잠금을 1,000번 잡아 수집을 굶겼습니다. 900만 행짜리 전체 집계를 매 주기 두 곳에서 부르던 것도 같은 부류였습니다. 한 번에 복사해 오는 방식으로 <strong>잠금 1회</strong>로 줄였습니다. 함수 하나만 보면 멀쩡한데 <strong>호출 빈도를 보면 아니었던</strong> 경우이고, 이 프로젝트에서만 세 번 나와 규칙으로 승격했습니다.</span>
+          </div></li>
+          <li><span class="mk">04</span><div>
+            <b>계산이 전부 맞아도 화면은 거짓말을 합니다</b>
+            <span>기준이 다른 수를 나란히 놓은 것만으로 세 곳이 틀렸습니다. 상단에 <strong>저장 176만 건과 수신 1,720건</strong>을 붙여놨는데 하나는 DB 전체 누적이고 하나는 이번 실행분이라 1,000배가 났습니다. 가동률이 화면마다 <strong>865/1,000과 1,000/1,000</strong>으로 갈린 것은 한쪽만 응답 확인까지 셌기 때문이고, <strong>3,722 → 1,862</strong>로 반이 증발한 것은 하나가 사건 수, 하나가 메시지 수였기 때문입니다. 해법은 설명을 덧붙이는 게 아니라 <strong>라벨에 기준을 적고, 단위가 안 맞는 자리는 숫자를 비우는 것</strong>이었습니다.</span>
+          </div></li>
+        </ol>
+        <div class="stack"><b>C# / .NET 8</b><b>WPF · 직접 렌더링</b><b>MQTT (브로커 내장 · TLS)</b><b>SQLite · WAL · 롤업</b><b>백그라운드 워커</b><b>xUnit 377건</b><b>PowerShell 검증 도구</b></div>
+      </article>
+
+      <div class="grid2">
+        <div class="cell">
+          <span class="k">12<small>건</small></span>
+          <h3>제가 낸 결함을 지우지 않고 남겼습니다</h3>
+          <p>결함 12건을 <strong>증상 · 원인 · 왜 못 봤는지</strong>까지 문서로 정리했습니다. 그중 하나는 <strong>제가 추가한 관측 지표가 그 자체로 부하가 된 사례</strong>입니다 — 좋은 의도의 계측이 시스템을 느리게 만들 수 있다는 것을 남겨뒀습니다.</p>
+        </div>
+        <div class="cell">
+          <span class="k">377<small>건</small></span>
+          <h3>테스트가 결함을 지키고 있던 경우</h3>
+          <p>기존 테스트 한 건이 <strong>"모든 관측이 같은 시각"을 정답으로 고정</strong>하고 있어서, 01번 결함을 오히려 보호하고 있었습니다. 테스트가 있다는 것과 테스트가 옳은 것을 지키고 있다는 것은 다른 이야기였습니다.</p>
+        </div>
+      </div>
+
+      <a class="repo-link" href="https://github.com/bosung2000/IoTSensorDashboard" rel="noopener">
+        <span class="rl-tag">공개 저장소</span>
+        <span class="rl-name">github.com/bosung2000/IoTSensorDashboard</span>
+        <span class="rl-desc">코드·테스트 377건·설계 문서 12건이 전부 공개돼 있습니다. <code>docs/</code> 에 구조 지도와 위 결함 기록을, <code>tools/</code> 에 기동 점검과 부하 검사 스크립트를 넣어 뒀습니다. 받아서 바로 실행해 보실 수 있습니다.</span>
+      </a>
+    </section>
+
+    <!-- 03 LLM -->
     <section id="llm">
-      <p class="eyebrow">02 — LLM 파이프라인</p>
+      <p class="eyebrow">03 — LLM 파이프라인</p>
       <h2>공시 원문으로 답하는 종목 분석 AI</h2>
       <p class="lede">
         미국 SEC 공시(10-K / 10-Q)를 근거로 질문에 답하는 시스템입니다.
@@ -354,6 +492,34 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
           </dl>
         </div>
 
+        <h3 style="margin-top:34px">무엇을 만들었나</h3>
+
+        <div class="flow">
+<pre><b>공시 수집</b>    <i>미국 상장사가 의무로 내는 보고서 — 연차(10-K)·분기(10-Q)</i>
+  │            한 건이 수백 페이지라 사람도 통째로는 못 읽는다
+  ▼
+<b>LLM 압축</b>    핵심만 남기고 반복되는 법률 문구를 걷어낸다
+  │
+  ▼
+<b>쪼개기</b>      의미가 끊기지 않는 단위로 자른다  <i>자르는 기준이 답변 품질을 좌우한다</i>
+  │
+  ▼
+<b>임베딩</b>      각 조각을 좌표로 바꿔 저장 — <i>"비슷한 뜻"을 거리로 찾기 위해</i>
+  │
+  ▼
+<b>검색 → 답변</b>  질문과 가까운 조각을 꺼내, <b>그 대목을 근거로만</b> 답하게 한다
+</pre>
+        </div>
+
+        <ul class="what">
+          <li><b>"이 회사 부채가 늘었나?" 같은 질문에 공시 원문을 근거로 답합니다.</b> 모델이 알고 있는 지식이 아니라 <b>실제 제출 문서에서 찾아온 대목</b>으로 답하게 만드는 것이 핵심입니다.</li>
+          <li><b>재무 수치는 LLM에게 맡기지 않습니다.</b> 표에서 직접 뽑고, 빠진 항목만 LLM이 채웁니다. 숫자를 지어내는 것이 가장 위험하기 때문입니다.</li>
+          <li><b>뽑아낸 수치가 회계적으로 말이 되는지 스스로 검사합니다.</b> 자산과 부채+자본이 맞지 않으면 그 자리에서 걸립니다.</li>
+          <li><b>무료 사용량 안에서 돌아가게 설계했습니다.</b> 이미 받은 공시는 다시 요청하지 않고, 한도에 걸리면 예비 키로 넘어갑니다.</li>
+        </ul>
+
+        <h3 style="margin-top:40px">그래서 무엇을 발견했나</h3>
+
         <ol class="findings">
           <li><span class="mk">▸</span><div>
             <b>LLM에 전부 맡기지 않는 하이브리드 파서</b>
@@ -376,13 +542,28 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
             <span>섹션별 토큰 예산, 보일러플레이트 제거, 키 이중화(429/503 시 백업 키 자동 폴백), 수집 로그 기반 재개 — <strong>이미 받은 건 API 호출 자체를 하지 않습니다.</strong> 이 설계로 DART 재무 27,729건을 한도에 한 번도 걸리지 않고 완주했습니다(421만 행).</span>
           </div></li>
         </ol>
+        <div class="shots two">
+          <figure class="shot">
+            <img src="img/llm-chat-single.png" alt="종목 대화 화면 — 답변에 근거 각주가 붙어 있다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>종목 대화 · 근거 표시</b>"경영진의 향후 전망을 정리해줘"에 대한 답변입니다. 중요한 건 답의 내용이 아니라 <strong>문장마다 붙은 각주와 맨 아래 출처 목록</strong>입니다 — 어느 보고서의 어느 항목에서 가져왔는지가 <strong>제출일·문서종류까지</strong> 찍힙니다. 근거를 못 찾으면 지어내지 않고 그렇게 말하도록 했습니다.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/llm-chat-compare.png" alt="두 종목 비교 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>두 회사 비교</b>같은 항목을 두 회사에서 각각 꺼내 나란히 놓습니다. <strong>회계연도가 다르면 비교가 성립하지 않으므로</strong> 어느 해 보고서에서 나온 수치인지를 함께 적게 했습니다.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/llm-disclosure-search.png" alt="공시 조회 화면 — 제출 목록과 분석 리포트" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>공시 조회 · 리포트 생성</b>종목을 넣으면 실제 제출 이력(연차·분기·내부자 거래·대량 보유)을 끌어와 목록으로 놓고, 거기서 분석 리포트를 만듭니다. 왼쪽 탭이 <strong>「어조 변화」·「내용 변화」</strong>인 이유는 <strong>이번 보고서가 지난번과 무엇이 달라졌는지가 실제 신호</strong>이기 때문입니다.</figcaption>
+          </figure>
+        </div>
+
         <div class="stack"><b>C# / .NET</b><b>Google Gemini API</b><b>임베딩 · 벡터 검색</b><b>청킹 전략</b><b>프롬프트 엔지니어링</b><b>SEC EDGAR</b><b>DART OpenAPI</b><b>SQLite · Dapper</b><b>xUnit</b></div>
       </article>
     </section>
 
-    <!-- 03 ML -->
+    <!-- 04 ML -->
     <section id="ml">
-      <p class="eyebrow">03 — 금융 ML</p>
+      <p class="eyebrow">04 — 금융 ML</p>
       <h2>확률을 내놓는 것보다<br />그 확률을 믿어도 되는지 재는 일</h2>
       <p class="lede">
         전략 신호의 성공 확률을 예측하는 LightGBM 모델과, 그 예측이 실제로 맞는지 검증하는 진단 도구를 만들었습니다.
@@ -407,6 +588,25 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
           <span>학습 데이터는 C#에서 내보내고(<code>HtfTrainingDataExporter</code>), 학습·추론은 Python이 맡고, <strong>FastAPI 추론 서버</strong>로 다시 붙입니다. 언어를 억지로 통일하지 않고 <strong>각 생태계가 잘하는 일을 시켰습니다</strong> — ML은 Python, 실시간 매매는 C#.</span>
         </div></li>
       </ol>
+      <div class="shots two">
+        <figure class="shot">
+          <img src="img/ml-inference.png" alt="추론 화면 — 봉별 확률과 SHAP 기여도 분해" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <figcaption><b>추론 · 왜 그 확률인지</b>종목과 날짜를 넣으면 특성 33개를 자동으로 뽑아 Python 서버가 봉마다 확률을 냅니다. 오른쪽이 <strong>그 숫자가 왜 나왔는지의 분해</strong>입니다 — 무엇이 확률을 올렸고 무엇이 끌어내렸는지. <strong>확률만 나오면 믿을 근거가 없습니다.</strong></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/ml-probability-gate.png" alt="확률 게이트 백테스트 비교 — 원본 대비 필터 적용" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <figcaption><b>모델을 실제로 끼워 본 결과</b>확률이 임계값을 넘을 때만 진입하도록 걸어 3년치를 다시 돌렸습니다. 거래가 <strong>332건 → 20건</strong>으로 줄고 손익비가 <strong>1.96 → 14.77</strong>이 됐습니다. 다만 <strong>20건은 결론을 내기엔 적은 표본</strong>이라, 이 숫자를 성과로 쓰지 않고 <strong>"게이트가 실제로 작동한다"는 확인까지만</strong> 씁니다.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/ml-calibration.png" alt="신뢰도 곡선 — 예측 확률 대비 실제 빈도" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <figcaption><b>신뢰도 곡선 · 승리 예측</b>가로가 모델이 말한 확률, 세로가 실제로 그렇게 된 비율입니다. <strong>대각선에 붙을수록 그 숫자를 믿어도 된다</strong>는 뜻이고, 아래로 처지면 모델이 자신을 과신하고 있다는 뜻입니다.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/ml-calibration-2r.png" alt="신뢰도 곡선 — 목표 수익 도달 예측" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <figcaption><b>신뢰도 곡선 · 목표 도달</b>같은 모델도 <strong>무엇을 맞히라고 시키느냐에 따라 신뢰도가 다릅니다.</strong> 그래서 목표(승리 / 목표가 도달 / 손절 히트)와 기간(60봉 / 240봉)별로 따로 뽑아 비교했습니다.</figcaption>
+        </figure>
+      </div>
+
       <div class="stack"><b>Python 3,554줄</b><b>LightGBM</b><b>scikit-learn</b><b>SHAP</b><b>pandas · numpy</b><b>FastAPI · uvicorn</b><b>pytest</b><b>matplotlib</b></div>
 
       <div class="note">
@@ -414,9 +614,9 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </div>
     </section>
 
-    <!-- 04 시스템 -->
+    <!-- 05 시스템 -->
     <section id="system">
-      <p class="eyebrow">04 — 시스템 설계</p>
+      <p class="eyebrow">05 — 시스템 설계</p>
       <h2>파는 물건으로 만들기</h2>
       <p class="lede">
         혼자 쓰는 도구와 남에게 파는 제품은 요구가 다릅니다.
@@ -440,6 +640,57 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
             <div><dt>문서</dt><dd>91건</dd></div>
           </dl>
         </div>
+        <h3 style="margin-top:34px">무엇을 만들었나</h3>
+
+        <div class="flow">
+<pre><b>후보 좁히기</b>   <i>조건에 맞는 종목만 남긴다 — 실시간 구독은 100종목이 물리 상한이다</i>
+  │
+  ▼
+<b>실시간 시세</b>   증권사 서버에서 체결·호가를 계속 받는다
+  │
+  ▼
+<b>신호 판정</b>    전략이 "지금 사라 / 팔아라"를 판단  <i>전략은 갈아끼울 수 있는 부품</i>
+  │
+  ▼
+<b>주문 · 체결</b>  주문을 내고, 안 채워지면 취소하고, 채워진 만큼만 관리한다
+  │
+  ▼
+<b>청산 · 방어</b>  손절 · 시간 마감 · 비상 정지 · 응답이 끊기면 스스로 정리
+</pre>
+        </div>
+
+        <ul class="what">
+          <li><b>사람이 화면을 보고 있지 않아도 돌아갑니다.</b> 종목을 고르고, 사고, 지키고, 파는 것까지 프로그램이 합니다. 사람은 <b>어떤 전략을 켤지와 언제 멈출지</b>만 정합니다.</li>
+          <li><b>전략을 부품처럼 갈아끼웁니다.</b> 고객마다 매매 방식이 다르기 때문에, 전략 하나를 파일로 만들어 끼우면 <b>본체를 고치지 않고</b> 동작하도록 경계를 나눴습니다.</li>
+          <li><b>과거 데이터로 먼저 검증합니다.</b> 실제 돈을 넣기 전에 20년치 시세로 같은 전략을 돌려 성과·최대 손실·거래 횟수를 봅니다. 이 검증 자체가 거짓말하지 않게 만드는 일이 <a href="#audit" style="color:var(--accent)">06 데이터 검증</a>입니다.</li>
+          <li><b>위험할 때 멈추는 장치를 여러 겹 넣었습니다.</b> 비상 정지, 주문 폭주 차단, 미체결 자동 취소, <b>프로그램이 응답을 멈추면 스스로 정리하는 장치</b>까지. 실제 돈이 걸린 시스템에서 가장 많이 손본 부분입니다.</li>
+          <li><b>밖에서도 확인하고 멈출 수 있습니다.</b> 텔레그램으로 현재 상태를 받고 원격으로 정지시킵니다.</li>
+        </ul>
+
+        <div class="shots">
+          <figure class="shot">
+            <img src="img/olaf-home.png" alt="FrozenOlaf 홈 화면 — 기능 전체와 시장 요약·알럿·텔레그램" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>홈 · 이 프로그램이 하는 일 전부</b>기능을 <strong>차트 · 조회/모니터링 · 분석/신호 · 자동매매</strong> 네 갈래로 나눠 놓았습니다. 위쪽은 지금 시장이 어떤지(지수·관심종목), 가운데는 <strong>전략이 잡아낸 신호를 시각별로 쌓은 알럿</strong>, 오른쪽은 <strong>텔레그램 연결</strong>입니다 — 자리에 없을 때 상태를 받고 원격으로 멈추는 통로입니다.</figcaption>
+          </figure>
+        </div>
+
+        <div class="shots two">
+          <figure class="shot">
+            <img src="img/olaf-backtest.png" alt="백테스트 화면 — 전략 성과 곡선과 거래 내역" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>백테스트</b>전략을 과거 시세에 돌려 수익·최대 낙폭·거래 내역을 냅니다. 상단에 <strong>「미청산 82건을 넣었을 때와 뺐을 때」를 둘 다 띄우는 것</strong>이 핵심입니다 — 못 판 주식을 빼면 <a href="#audit" style="color:var(--accent)">06</a>에서 말하는 그 편향이 그대로 들어옵니다. 진입이 걸러진 건수도 사유별로 함께 셉니다.<br /><small style="color:var(--muted)">※ 화면의 795.6%는 <strong>특정 전략·표본 설정 한 번의 실행값</strong>입니다. 06의 397%·1,241%와는 전략도 종목 범위도 다릅니다.</small></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/olaf-autotrade.png" alt="자동매매 관리 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>자동매매 관리 · 모의투자</b>오늘 무엇을 샀고 팔았는지, 어떤 전략이 켜져 있는지, 다음 후보로 무엇이 대기 중인지를 한 화면에서 봅니다. 종목마다 <strong>어느 전략이 낸 거래인지</strong>가 붙습니다 — 여러 전략이 같이 돌 때 한 종목을 두고 다투지 않도록 소유권을 정해뒀습니다.<br /><small style="color:var(--muted)">※ <strong>모의투자 계좌</strong> 화면입니다. 손익은 그날 시장 상황 그대로이고 보정하지 않았습니다.</small></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/olaf-telegram.png" alt="텔레그램 원격 알림 — 주문 전송·거부·청산이 실시간으로 전달된다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>텔레그램 원격</b>자리에 없을 때 무슨 일이 일어나는지가 그대로 옵니다. 눈여겨볼 것은 성공 기록이 아니라 <strong>「주문 거부 — 주문 쿨다운 중」이 세 번 연속 찍힌 부분</strong>입니다. <strong>폭주 차단 장치가 실제로 작동한 흔적</strong>이고, 이런 것이 안 보이면 시스템이 조용히 무엇을 막았는지 알 방법이 없습니다. 아래로는 손절 청산과 슬롯 해제까지 이어집니다.</figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:40px">그래서 무엇을 발견했나</h3>
+
         <ol class="findings">
           <li><span class="mk">▸</span><div>
             <b>전략 교체가 가능한 프레임워크 구조</b>
@@ -492,9 +743,9 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </article>
     </section>
 
-    <!-- 05 데이터 검증 -->
+    <!-- 06 데이터 검증 -->
     <section id="audit">
-      <p class="eyebrow">05 — 데이터 검증</p>
+      <p class="eyebrow">06 — 데이터 검증</p>
       <h2>제 백테스트 수익률을<br />제 손으로 1,322%에서 397%로 내렸습니다.</h2>
       <p class="lede">
         전략을 튜닝해서 올린 숫자가 아니라, <strong>데이터가 거짓말하고 있다는 것을 찾아내서 내린</strong> 숫자입니다.
@@ -550,26 +801,27 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </blockquote>
     </section>
 
-    <!-- 06 스택 -->
+    <!-- 07 스택 -->
     <section id="stack">
-      <p class="eyebrow">06 — 기술 스택</p>
+      <p class="eyebrow">07 — 기술 스택</p>
       <h2>쓸 수 있는 것</h2>
       <dl class="skills">
         <div><dt>AI · LLM</dt><dd>Google Gemini API · 임베딩 기반 RAG · 청킹 전략 · 프롬프트 엔지니어링(목적별 분리 · 프롬프트 단위 테스트) · 토큰 예산 설계 · 출력 검증층 · 키 이중화와 폴백</dd></div>
         <div><dt>ML</dt><dd>LightGBM · scikit-learn · CPCV(누수 방지 교차검증) · 확률 캘리브레이션(Brier · reliability) · SHAP · ablation study · FastAPI 추론 서버</dd></div>
         <div><dt>AI 개발 운용</dt><dd>Claude Code 서브에이전트 정의 · 훅 · 커스텀 스킬 · 트리거 기반 문서 라우팅 · 하네스 체계 설계 · 다중 에이전트 교차 검증</dd></div>
         <div><dt>언어</dt><dd>C# (.NET 8 / .NET Framework 4.7.2) · Python · SQL</dd></div>
-        <div><dt>애플리케이션</dt><dd>WPF · MVVM · 의존성 주입 · 플러그인 아키텍처 · WinForms · COM/OCX 상호운용 · 어셈블리 경계 설계</dd></div>
-        <div><dt>데이터</dt><dd>SQLite · Dapper · MS Access(Jet OLEDB) · 스키마 마이그레이션 · 900만 행 규모 수집 파이프라인 · PIT(시점 정합) 데이터 설계</dd></div>
-        <div><dt>외부 연동</dt><dd>키움 OpenAPI · KRX OpenAPI · DART OpenAPI · SEC EDGAR · Yahoo Finance · Telegram Bot</dd></div>
-        <div><dt>테스트</dt><dd>xUnit · FluentAssertions · pytest · 배선(end-to-end) 테스트 · 뮤테이션 실측 · 리플렉션 회귀 가드</dd></div>
+        <div><dt>애플리케이션</dt><dd>WPF · MVVM · 의존성 주입 · 플러그인 아키텍처 · WinForms · COM/OCX 상호운용 · 어셈블리 경계 설계 · 직접 렌더링(고빈도 화면 갱신)</dd></div>
+        <div><dt>실시간 · 동시성</dt><dd>MQTT(브로커 내장 · TLS · 무한 재연결) · 백그라운드 워커 · 배치 커밋 · 잠금 경합 진단 · 멱등 처리(중복 방지) · 부하 상한 설계 · 백프레셔</dd></div>
+        <div><dt>데이터</dt><dd>SQLite(WAL · 롤업 · 보존정책) · Dapper · MS Access(Jet OLEDB) · 스키마 마이그레이션 · 900만 행 규모 수집 파이프라인 · PIT(시점 정합) 데이터 설계</dd></div>
+        <div><dt>외부 연동</dt><dd>키움 OpenAPI · KRX OpenAPI · DART OpenAPI · SEC EDGAR · Yahoo Finance · Telegram Bot · MQTT</dd></div>
+        <div><dt>테스트</dt><dd>xUnit · FluentAssertions · pytest · 배선(end-to-end) 테스트 · 뮤테이션 실측 · 리플렉션 회귀 가드 · UI 자동화 기반 부하·응답성 검증</dd></div>
         <div><dt>도메인</dt><dd>증권 매매 체결·주문 흐름 · 백테스트 엔진 설계 · 생존편향/룩어헤드 제거 · 상장폐지 손실 모델링 · 수정주가 보정 · 재무제표(XBRL) 구조 · 포트폴리오 자본 시뮬레이션</dd></div>
       </dl>
     </section>
 
-    <!-- 07 기여 범위 -->
+    <!-- 08 기여 범위 -->
     <section id="scope">
-      <p class="eyebrow">07 — 기여 범위</p>
+      <p class="eyebrow">08 — 기여 범위</p>
       <h2>어디까지가 제 작업인지</h2>
       <p class="lede">포트폴리오에서 가장 검증하기 어려운 부분이라 수치로 먼저 밝혀 둡니다.</p>
 
@@ -583,16 +835,17 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
             <tr><td>TradingAi_Ver01</td><td>LLM 모듈</td><td class="n"><span class="me">19</span></td><td class="n">19</td><td class="n">—</td></tr>
             <tr><td>TradingAi_Ver01</td><td>Core 로직</td><td class="n"><span class="me">152</span></td><td class="n">251</td><td class="n">—</td></tr>
             <tr><td>TradingAi_Ver01</td><td>차트 엔진</td><td class="n">19</td><td class="n">102</td><td class="n">동료 주도</td></tr>
+            <tr><td>IoTSensorDashboard</td><td>전체 <b style="font-weight:700;color:var(--accent)">· 소스 공개</b></td><td class="n"><span class="me">40</span></td><td class="n">40</td><td class="n">+23,319</td></tr>
             <tr><td>FrozenStudio</td><td>전체</td><td class="n"><span class="me">30</span></td><td class="n">30</td><td class="n">+3,176</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="note">
-        <p style="margin:0"><b>단독 개발</b> — FrozenOlaf · Alpha-Redline AI · FrozenStudio(매매 성과를 콘텐츠로 만들어 SNS에 게시하는 Python 파이프라인). 설계부터 구현·검증까지 전부 제 작업입니다.</p>
+        <p style="margin:0"><b>단독 개발</b> — FrozenOlaf · Alpha-Redline AI · IoTSensorDashboard · FrozenStudio(매매 성과를 콘텐츠로 만들어 SNS에 게시하는 Python 파이프라인). 설계부터 구현·검증까지 전부 제 작업입니다.</p>
         <p style="margin:12px 0 0"><b>공동 개발</b> — TradingAi_Ver01은 2인 프로젝트입니다. 저는 <b>UI·차트를 제외한 설계와 로직</b>을 맡았고, ML·LLM 모듈은 단독으로 작성했습니다. 차트 렌더링은 동료의 영역이라 제 실적에 포함하지 않았습니다.</p>
         <p style="margin:12px 0 0"><b>AI 활용</b> — 위 코드는 Claude Code를 도구로 사용해 작성했습니다. 숨길 이유가 없다고 생각합니다. 다만 <b>설계 결정·검증 방법·기각 판단은 전부 제가 내렸고</b>, 이 문서에 적힌 발견들은 대부분 AI가 내놓은 결과를 제가 의심해서 나온 것입니다. 어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</p>
-        <p style="margin:12px 0 0"><b>소스 공개</b> — 프로젝트 소스는 상용화를 전제로 비공개이고, 일부는 공동 소유라 단독으로 공개할 수 없습니다. 대신 <b>영업비밀이 아닌 개발 체계는 <a href="https://github.com/bosung2000/ai-dev-harness" rel="noopener" style="color:var(--accent)">공개 저장소</a>로 정리해 두었습니다.</b> 그 외 구조·설계 결정·검증 근거는 요청 시 상세히 설명드리며, 화면 공유로 코드 리뷰 자리를 만들 수 있습니다.</p>
+        <p style="margin:12px 0 0"><b>소스 공개</b> — 금융 프로젝트 소스는 상용화를 전제로 비공개이고, 일부는 공동 소유라 단독으로 공개할 수 없습니다. 대신 <b>제 코드를 직접 보실 수 있도록 <a href="https://github.com/bosung2000/IoTSensorDashboard" rel="noopener" style="color:var(--accent)">IoTSensorDashboard</a>(실시간 관제 시스템 전체 · 코드 2.3만 줄 · 테스트 377건)와 <a href="https://github.com/bosung2000/ai-dev-harness" rel="noopener" style="color:var(--accent)">ai-dev-harness</a>(개발 체계)를 공개해 두었습니다.</b> 그 외 구조·설계 결정·검증 근거는 요청 시 상세히 설명드리며, 화면 공유로 코드 리뷰 자리를 만들 수 있습니다.</p>
       </div>
     </section>
 
