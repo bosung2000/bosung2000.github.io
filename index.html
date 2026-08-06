@@ -677,7 +677,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         <div class="shots two">
           <figure class="shot">
             <img src="img/olaf-backtest.png" alt="백테스트 화면 — 전략 성과 곡선과 거래 내역" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>백테스트</b>전략을 과거 시세에 돌려 수익·최대 낙폭·거래 내역을 냅니다. 이 화면에서 신경 쓴 것은 <strong>기준이 다른 수를 한 덩어리로 보여주지 않는 것</strong>입니다 — 종목별 성적을 단순히 합한 값과 <strong>실제로 자본을 굴렸을 때의 값</strong>은 다르므로 블록을 나눠 각각 라벨을 달았고, 상단에는 <strong>못 판 주식(미청산 82건)을 넣었을 때 795.6%, 뺐을 때 673.8%</strong>를 둘 다 띄웁니다. 빼는 쪽만 보여주면 <a href="#audit" style="color:var(--accent)">06</a>에서 말하는 그 편향이 그대로 들어옵니다. 진입이 걸러진 건수도 사유별로 함께 셉니다.<br /><small style="color:var(--muted)">※ 한 번의 실행값이며 <strong>특정 전략·표본 설정</strong> 기준입니다. 06의 397%·1,241%와는 전략도 종목 범위도 다릅니다.</small></figcaption>
+            <figcaption><b>백테스트</b>한 화면에서 세 가지를 봅니다. <strong>오른쪽 위는 전략 자체의 성적</strong> — 종목마다 따로 돌린 결과를 합산한 것입니다(거래 4,359건 · 승률 22.2% · 이익팩터 1.98). <strong>아래는 그 전략으로 실제 자금을 굴렸을 때</strong>입니다 — 시드 100만 원, 종목당 5%, 최대 20종목이라는 제약이 붙으면 <strong>신호가 떠도 자리가 없어 못 사는 경우</strong>가 생겨 거래가 2,178건으로 줄고 결과도 달라집니다. <strong>왼쪽은 그 거래를 차트에 찍은 것</strong>입니다 — 종목을 클릭하면 진입·청산 지점이 봉 위에 표시돼 눈으로 확인합니다.<br /><small style="color:var(--muted)">※ 특정 전략·표본 설정으로 한 번 실행한 값입니다.</small></figcaption>
           </figure>
           <figure class="shot">
             <img src="img/olaf-autotrade.png" alt="자동매매 관리 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
