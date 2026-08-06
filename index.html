@@ -677,7 +677,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         <div class="shots two">
           <figure class="shot">
             <img src="img/olaf-backtest.png" alt="백테스트 화면 — 전략 성과 곡선과 거래 내역" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>백테스트</b>한 화면에서 세 가지를 봅니다. <strong>오른쪽 위는 전략 자체의 성적</strong> — 종목마다 따로 돌린 결과를 합산한 것입니다(거래 4,359건 · 승률 22.2% · 이익팩터 1.98). <strong>아래는 그 전략으로 실제 자금을 굴렸을 때</strong>입니다 — 시드 100만 원, 종목당 5%, 최대 20종목이라는 제약이 붙으면 <strong>신호가 떠도 자리가 없어 못 사는 경우</strong>가 생겨 거래가 2,178건으로 줄고 결과도 달라집니다. <strong>왼쪽은 그 거래를 차트에 찍은 것</strong>입니다 — 종목을 클릭하면 진입·청산 지점이 봉 위에 표시돼 눈으로 확인합니다.<br /><small style="color:var(--muted)">※ 특정 전략·표본 설정으로 한 번 실행한 값입니다.</small></figcaption>
+            <figcaption><b>백테스트 랩</b><strong>오른쪽에서 돌린 결과가 왼쪽 차트와 이어집니다.</strong> 결과 목록에서 종목을 클릭하면 차트가 그 종목으로 바뀌고 <strong>진입·청산 지점이 봉 위에 찍혀</strong>, 숫자만 보고 판단하지 않고 어디서 사고 팔았는지를 눈으로 확인합니다. 전략은 <strong>목록에서 골라 바꿔 끼우고</strong>, 고르면 그 전략의 설정값이 아래에 나타납니다 — RSI 기간·과매도선·추세 필터 같은 것을 <strong>코드를 건드리지 않고 화면에서 조정</strong>합니다. 종목 범위(전체 / 표본 / 직접 입력), 기간, 종목당 투입 비율, 최대 보유 수, 슬리피지도 같은 방식이고, 자주 쓰는 조합은 <strong>프리셋으로 저장해 다시 부릅니다.</strong></figcaption>
           </figure>
           <figure class="shot">
             <img src="img/olaf-autotrade.png" alt="자동매매 관리 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
