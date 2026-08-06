@@ -96,6 +96,14 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--paper-2);padding:
   font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1}
 .fig dd span{font-size:14px;font-weight:500;color:var(--muted);margin-left:3px}
 
+/* 먼저 밝힙니다 */
+.disclose{margin:44px 0 0;padding:26px 28px;border:1px solid var(--rule);background:var(--paper-2)}
+.disclose .dl-tag{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.disclose p{margin:0 0 12px;font-size:15px;line-height:1.75;color:var(--ink-2);max-width:66ch}
+.disclose p:last-child{margin-bottom:0}
+.disclose strong{color:var(--ink)}
+
 /* 목록 */
 .findings{list-style:none;margin:26px 0 0;padding:0}
 .findings li{display:grid;grid-template-columns:24px 1fr;gap:14px;padding:15px 0;
@@ -237,12 +245,12 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
   <nav class="index" aria-label="목차">
     <ol>
-      <li><a href="#harness" class="on"><span class="n">01</span>AI 개발 체계</a></li>
+      <li><a href="#system" class="on"><span class="n">01</span>매매 시스템</a></li>
       <li><a href="#realtime"><span class="n">02</span>실시간 관제</a></li>
       <li><a href="#llm"><span class="n">03</span>LLM 파이프라인</a></li>
       <li><a href="#ml"><span class="n">04</span>금융 ML</a></li>
-      <li><a href="#system"><span class="n">05</span>시스템 설계</a></li>
-      <li><a href="#audit"><span class="n">06</span>데이터 검증</a></li>
+      <li><a href="#audit"><span class="n">05</span>데이터 검증</a></li>
+      <li><a href="#harness"><span class="n">06</span>AI 개발 체계</a></li>
       <li><a href="#stack"><span class="n">07</span>기술 스택</a></li>
       <li><a href="#scope"><span class="n">08</span>기여 범위</a></li>
     </ol>
@@ -252,13 +260,13 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
     <header class="masthead">
       <span class="stamp">AI 시스템 엔지니어링 · 금융 도메인</span>
-      <h1>AI에게 코드를 시키는 일과<br /><em>AI를 운용하는 일</em>은<br />다른 문제입니다.</h1>
+      <h1>스물에 제 계좌로<br />매매 프로그램을 돌렸고,<br /><em>실패했습니다.</em></h1>
       <p class="sub">
-        LLM 파이프라인과 금융 ML을 설계하고, <strong>AI가 내놓은 결과를 자동으로 반증하는 구조</strong>를 만듭니다.
-        5개월간 5개 시스템에 31.1만 줄을 작성했는데, 그중 상당 부분은 코드가 아니라
-        <strong>같은 실수를 두 번 하지 않게 만드는 체계</strong>였습니다.
+        프로그램이 멈춘 게 아니라 <strong>전략이 통하지 않아 손실을 봤습니다.</strong>
+        6년이 지나 같은 프로그램을 다시 만들면서 알게 됐습니다 — 형편없었던 것은 전략만이 아니었습니다.
+        <strong>그때는 문제인 줄도 몰랐던 자리들이 지금은 보입니다.</strong> 겪어봤기 때문입니다.
       </p>
-      <p class="who">고보성 · 2000년생 · 서울</p>
+      <p class="who">고보성 · 2000년생 · 서울 · 신입 — <strong style="color:var(--ink-2)">AI·LLM / 핀테크·증권IT / SI·솔루션</strong> 포지션을 찾고 있습니다</p>
       <div class="contact">
         <a href="mailto:gobosung2000@gmail.com">gobosung2000@gmail.com</a>
         <a href="https://github.com/bosung2000" rel="noopener">github.com/bosung2000</a>
@@ -270,81 +278,155 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         <div class="fig"><dt>설계 문서</dt><dd>393<span>건</span></dd></div>
         <div class="fig"><dt>기간</dt><dd>5<span>개월</span></dd></div>
       </dl>
+
+      <div class="disclose">
+        <span class="dl-tag">먼저 밝힙니다</span>
+        <p><strong>이 코드는 Claude Code를 도구로 써서 작성했습니다.</strong> 위 숫자를 그대로 읽으면 5개월에 31만 줄, 하루 평균 2,000줄입니다. <strong>사람이 손으로 쓸 수 있는 속도가 아닙니다.</strong> 그래서 줄 수를 실적으로 내밀지 않겠습니다.</p>
+        <p>대신 내밀 수 있는 것은 이것입니다 — <strong>AI가 내놓은 결과 중 무엇을 기각했는지, 왜 기각했는지, 그리고 그 판단을 다음번에는 사람이 아니라 테스트가 하게 만들려고 무엇을 만들었는지.</strong> 아래에 적힌 발견들은 대부분 AI가 준 답을 제가 의심해서 나온 것입니다.</p>
+        <p>설계 결정·검증 방법·기각 판단은 전부 제가 내렸습니다. <strong>어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</strong></p>
+      </div>
     </header>
 
-    <!-- 01 AI 개발 체계 -->
-    <section id="harness">
-      <p class="eyebrow">01 — AI 개발 체계</p>
-      <h2>하네스(Harness) — 코드를 쓰기 전에 읽히는 체크리스트</h2>
+    <!-- 01 매매 시스템 -->
+    <section id="system">
+      <p class="eyebrow">01 — 매매 시스템</p>
+      <h2>6년 뒤,<br />처음부터 다시 만들었습니다.</h2>
       <p class="lede">
-        AI는 지난주에 무엇이 잘못됐는지 기억하지 못합니다.
-        그래서 <strong>기억해야 할 것을 파일로 만들고, 작업 종류를 감지하면 자동으로 읽히게</strong> 했습니다.
-        "차트 지표를 추가해줘"라고 말하면 12단계 절차와 과거 결함 5종이 함께 따라옵니다.
+        같은 증권사 API, 같은 목적입니다. 달라진 것은 <strong>무엇을 먼저 만드느냐</strong>였습니다.
+        2020년에는 사고팔게 만드는 데 시간을 다 썼는데, 이번에 가장 오래 붙든 것은 매매 로직이 아니라
+        <strong>멈추는 장치와 경계 설계</strong>입니다. 실제 돈이 걸려 있으면 우선순위가 그렇게 바뀝니다.
       </p>
 
-      <div class="flow">
-<pre>작업 요청 감지
+      <article class="proj">
+        <div class="proj-head">
+          <div>
+            <div class="proj-title">
+              <h3>FrozenOlaf</h3>
+              <span class="tag solo">단독 개발 644/659</span>
+              <span class="tag">모의투자 검증 중</span>
+            </div>
+            <p>키움증권 OpenAPI 기반 한국 주식 자동매매 시스템. 2020년에 직접 만들어 <strong>실제 계좌로 돌렸던 반자동 프로그램</strong>을, 완전 무인 자동매매 + 판매 가능한 제품으로 다시 만들고 있습니다.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>기간</dt><dd>2026.06 — 진행 중</dd></div>
+            <div><dt>커밋</dt><dd>644 / 659</dd></div>
+            <div><dt>코드</dt><dd>+161,795줄</dd></div>
+            <div><dt>문서</dt><dd>91건</dd></div>
+          </dl>
+        </div>
+
+        <h3 style="margin-top:34px">왜 다시 만들었나</h3>
+        <p style="font-size:14.5px;color:var(--ink-2);max-width:66ch;margin-top:12px">2020년 것에는 세 가지 한계가 있었습니다. <strong>제가 화면 앞에 있어야만 돌았고</strong>, 남에게 주려면 <strong>전략이 통째로 노출됐으며</strong>, 무엇보다 <strong>잘못 가고 있을 때 그것을 멈출 장치가 없었습니다.</strong> 손실은 전략 때문이었지만, 손실이 나는 동안 아무것도 못 한 것은 프로그램 때문이었습니다. 이번에는 그 셋을 <strong>기능이 아니라 구조로</strong> 넣었습니다.</p>
+
+        <h3 style="margin-top:34px">무엇을 만들었나</h3>
+
+        <div class="flow">
+<pre><b>후보 좁히기</b>   <i>조건에 맞는 종목만 남긴다 — 실시간 구독은 100종목이 물리 상한이다</i>
   │
-  ├─ <b>1. 트리거 매칭</b>   키워드 → 해당 도메인 하네스 문서 자동 로드
-  │                    <i>"OCX를 다루는 화면"이면 키움 하네스가 반드시 동반</i>
+  ▼
+<b>실시간 시세</b>   증권사 서버에서 체결·호가를 계속 받는다
   │
-  ├─ <b>2. 계획</b>         분해 · 의존성 · 위험 식별
-  │                    <i>사용자 승인 전에는 코드를 건드리지 않음</i>
+  ▼
+<b>신호 판정</b>    전략이 "지금 사라 / 팔아라"를 판단  <i>전략은 갈아끼울 수 있는 부품</i>
   │
-  ├─ <b>3. 구현</b>         테스트 우선 (RED → GREEN → 리팩토링)
+  ▼
+<b>주문 · 체결</b>  주문을 내고, 안 채워지면 취소하고, 채워진 만큼만 관리한다
   │
-  ├─ <b>4. 교차 검토</b>     code-reviewer · security-reviewer 병렬 실행
-  │                    <i>서로 모르는 상태로 같은 코드를 보게 함</i>
-  │
-  ├─ <b>5. 배선 검증</b>     순수 함수 테스트로는 못 잡는 결함 —
-  │                    <i>콜백을 일부러 끊고 정확히 1건만 실패하는지 실측</i>
-  │
-  └─ <b>6. 박제</b>         재발 가능한 결함이면 하네스·규칙으로 승격
-                       <i>"이번만 예외"로 넘기지 않는다</i>
+  ▼
+<b>청산 · 방어</b>  손절 · 시간 마감 · 비상 정지 · 응답이 끊기면 스스로 정리
 </pre>
-      </div>
-
-      <div class="grid2">
-        <div class="cell">
-          <span class="k">16<small>종</small></span>
-          <h3>작업 유형별 하네스</h3>
-          <p>화면 추가, 버튼, 리스트, 팝업, 드래그-드롭, 백그라운드 서비스, 키움 OCX 호스팅, 전략 엔진까지. 각 문서가 <strong>절차 + 골격 코드 + 과거에 실제로 터진 결함 목록</strong>을 갖습니다. 작업 후 항목별로 통과 여부를 검증합니다.</p>
         </div>
-        <div class="cell">
-          <span class="k">20<small>종</small></span>
-          <h3>역할별 서브에이전트</h3>
-          <p>계획·아키텍처·디버깅·보안·DB·테스트·빌드오류로 역할을 나눠 직접 정의했습니다. 프로젝트 전용 5종은 <strong>그 프로젝트에서만 통하는 함정</strong>을 압니다 — 키움 OCX 규칙 검사기, WPF 빌더 등.</p>
-        </div>
-        <div class="cell">
-          <span class="k">50<small>개</small></span>
-          <h3>영구 메모리</h3>
-          <p>세션이 끊겨도 남는 지식 파일. 결론만이 아니라 <strong>기각된 시도와 그 이유</strong>를 같이 적습니다. "이 방법은 개선율 −69.8%로 실패했다"가 성공 기록보다 자주 쓰입니다.</p>
-        </div>
-        <div class="cell">
-          <span class="k">17<small>조</small></span>
-          <h3>위반 시 중단 규칙</h3>
-          <p>권고가 아니라 <strong>어기면 작업을 멈추는</strong> 규칙입니다. 전부 실제로 사고가 난 뒤 승격된 항목이고, 상당수는 사람이 지키는 대신 <strong>테스트와 빌드 스크립트가 차단</strong>합니다.</p>
-        </div>
-      </div>
 
-      <blockquote class="pullquote">
-        순수 함수는 전부 통과하는데 배선만 끊긴 사고가 하루에 세 번 났습니다.
-        그래서 테스트를 셋으로 나눴습니다 — 순수 로직, 끝에서 끝까지 배선,
-        그리고 <strong>일부러 코드를 망가뜨려 테스트가 실제로 잡는지 확인하는 것.</strong>
-        <cite>— 배선 테스트를 도입한 이유</cite>
-      </blockquote>
+        <ul class="what">
+          <li><b>사람이 화면을 보고 있지 않아도 돌아갑니다.</b> 종목을 고르고, 사고, 지키고, 파는 것까지 프로그램이 합니다. 사람은 <b>어떤 전략을 켤지와 언제 멈출지</b>만 정합니다.</li>
+          <li><b>전략을 부품처럼 갈아끼웁니다.</b> 고객마다 매매 방식이 다르기 때문에, 전략 하나를 파일로 만들어 끼우면 <b>본체를 고치지 않고</b> 동작하도록 경계를 나눴습니다.</li>
+          <li><b>과거 데이터로 먼저 검증합니다.</b> 실제 돈을 넣기 전에 20년치 시세로 같은 전략을 돌려 성과·최대 손실·거래 횟수를 봅니다.</li>
+          <li><b>위험할 때 멈추는 장치를 여러 겹 넣었습니다.</b> 비상 정지, 주문 폭주 차단, 미체결 자동 취소, <b>프로그램이 응답을 멈추면 스스로 정리하는 장치</b>까지. 실제 돈이 걸린 시스템에서 가장 많이 손본 부분입니다.</li>
+          <li><b>밖에서도 확인하고 멈출 수 있습니다.</b> 텔레그램으로 현재 상태를 받고 원격으로 정지시킵니다.</li>
+        </ul>
 
-      <p>
-        에이전트를 여러 개 띄워 <strong>사실 검토 / 시니어 리뷰 / 보안 / 일관성 / 중복</strong> 각각의 관점으로 같은 코드를 보게 하는 방식도 씁니다.
-        실전 투입 전 감사에서 두 에이전트가 독립적으로 찾은 최상위 결함이 <strong>알고 보니 같은 근본 원인</strong>이었던 적이 있는데,
-        따로 도달한 결론은 신뢰도가 다릅니다. 반대로 한쪽만 지적한 항목은 우선 의심합니다.
-      </p>
+        <div class="shots">
+          <figure class="shot">
+            <img src="img/olaf-home.png" alt="FrozenOlaf 홈 화면 — 기능 전체와 시장 요약·알럿·텔레그램" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>홈 · 이 프로그램이 하는 일 전부</b>기능을 <strong>차트 · 조회/모니터링 · 분석/신호 · 자동매매</strong> 네 갈래로 나눠 놓았습니다. 위쪽은 지금 시장이 어떤지(지수·관심종목), 가운데는 <strong>전략이 잡아낸 신호를 시각별로 쌓은 알럿</strong>, 오른쪽은 <strong>텔레그램 연결</strong>입니다 — 자리에 없을 때 상태를 받고 원격으로 멈추는 통로입니다.</figcaption>
+          </figure>
+        </div>
 
-      <a class="repo-link" href="https://github.com/bosung2000/ai-dev-harness" rel="noopener">
-        <span class="rl-tag">공개 저장소</span>
-        <span class="rl-name">github.com/bosung2000/ai-dev-harness</span>
-        <span class="rl-desc">이 체계를 문서와 실행 가능한 도구로 정리해 공개했습니다. 커밋 전 API 키를 자동 차단하는 검사기와 훅은 그대로 복사해 쓰실 수 있습니다.</span>
-      </a>
+        <div class="shots two">
+          <figure class="shot">
+            <img src="img/olaf-backtest.png" alt="백테스트 화면 — 전략 성과 곡선과 거래 내역" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>백테스트 랩</b><strong>오른쪽에서 돌린 결과가 왼쪽 차트와 이어집니다.</strong> 결과 목록에서 종목을 클릭하면 차트가 그 종목으로 바뀌고 <strong>진입·청산 지점이 봉 위에 찍혀</strong>, 숫자만 보고 판단하지 않고 어디서 사고 팔았는지를 눈으로 확인합니다. 전략은 <strong>목록에서 골라 바꿔 끼우고</strong>, 고르면 그 전략의 설정값이 아래에 나타납니다 — RSI 기간·과매도선·추세 필터 같은 것을 <strong>노코드 방식으로 UI에서 조정</strong>합니다. 종목 범위(전체 / 표본 / 직접 입력), 기간, 종목당 투입 비율, 최대 보유 수, 슬리피지도 같은 방식이고, 자주 쓰는 조합은 <strong>프리셋으로 저장해 다시 부릅니다.</strong></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/olaf-autotrade.png" alt="자동매매 관리 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>자동매매 관리 · 모의투자</b>오늘 무엇을 샀고 팔았는지, 어떤 전략이 켜져 있는지, 다음 후보로 무엇이 대기 중인지를 한 화면에서 봅니다. 종목마다 <strong>어느 전략이 낸 거래인지</strong>가 붙습니다 — 여러 전략이 같이 돌 때 한 종목을 두고 다투지 않도록 소유권을 정해뒀습니다.<br /><small style="color:var(--muted)">※ <strong>모의투자 계좌</strong> 화면입니다. 손익은 그날 시장 상황 그대로이고 보정하지 않았습니다.</small></figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/olaf-telegram.png" alt="텔레그램 원격 알림 — 주문 전송·거부·청산이 실시간으로 전달된다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>텔레그램 원격</b>자리에 없을 때 무슨 일이 일어나는지가 그대로 옵니다. 눈여겨볼 것은 성공 기록이 아니라 <strong>「주문 거부 — 주문 쿨다운 중」이 세 번 연속 찍힌 부분</strong>입니다. <strong>폭주 차단 장치가 실제로 작동한 흔적</strong>이고, 이런 것이 안 보이면 시스템이 조용히 무엇을 막았는지 알 방법이 없습니다. 아래로는 손절 청산과 슬롯 해제까지 이어집니다.</figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:40px">그래서 무엇을 발견했나</h3>
+
+        <ol class="findings">
+          <li><span class="mk">▸</span><div>
+            <b>전략 교체가 가능한 프레임워크 구조</b>
+            <span>고객 전략을 <strong>DLL 하나로 끼우면 본체 수정 없이</strong> 동작하도록 계약 인터페이스를 분리했습니다. "계약 표면 = 고객 진입점의 전이 폐포"로 경계를 정의해, 어디까지가 공개 API이고 어디부터가 내부인지를 명확히 했습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>알고리즘 유출 방지를 빌드로 강제</b>
+            <span>전략 로직이 판매본 DLL에 섞이면 디컴파일로 노출됩니다. <strong>어셈블리를 8개로 쪼개고 DTO 경계 + 참조 방향 + 빌드 구성</strong> 3겹으로 막았습니다. 사람이 조심하는 대신 <strong>빌드 스크립트가 위반을 차단</strong>합니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>실계좌 진입 전 하드닝 감사</b>
+            <span>독립된 관점으로 전수 감사해 CRITICAL 4건을 잡았습니다. 그중 하나는 <strong>비상 정지 스위치가 신규 매수뿐 아니라 청산까지 막고 있던 것</strong> — 위험할 때 팔지도 못하게 되는 결함이었습니다. 청산은 방어 주문으로 분류해 폭주 방지 게이트에서 면제하도록 고쳤습니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>거래 안전장치</b>
+            <span>매도 초과 주문 방지(매도가능수량 소비 모델), 동시호가 시각 계단 처리, 미체결 자동 취소, 재시작 시 보유종목 실시간 구독 유실 복구, dead-man's switch. <strong>실시간 구독 100종목 물리 상한</strong>이라는 제약에서 출발해 유니버스를 먼저 좁히는 구조로 재설계했습니다.</span>
+          </div></li>
+        </ol>
+        <h3 style="margin-top:40px">그래서 어떻게 됐나</h3>
+
+        <ul class="what">
+          <li><b>모의투자 계좌로 2주 무중단 운용했습니다.</b> 그동안 위 안전장치들이 실제로 발동했고, 무엇이 왜 막혔는지가 텔레그램에 그대로 남았습니다.</li>
+          <li><b>실계좌는 아직 돌리지 않습니다.</b> 프로그램이 준비되지 않아서가 아니라 <b>넣을 전략이 준비되지 않았기 때문</b>입니다. 백테스트에서 실계좌에 넣을 만한 성적이 나오는 전략을 아직 못 찾았습니다. <b>돈이 걸린 판단이라 확인되지 않은 것을 켜지 않습니다.</b></li>
+          <li><b>판매는 외주 플랫폼에 등록한 단계입니다.</b> 아직 수주는 없습니다. 「상용화 완료」가 아니라 <b>여기까지 왔다</b>는 뜻으로 적습니다.</li>
+        </ul>
+
+        <div class="stack"><b>C# / .NET Framework 4.7.2 (x86)</b><b>.NET 8</b><b>WPF · MVVM · DI</b><b>키움 OpenAPI (COM/OCX)</b><b>SQLite</b><b>MS Access</b><b>Telegram Bot</b><b>xUnit</b></div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-head">
+          <div>
+            <div class="proj-title">
+              <h3>TradingAi_Ver01</h3>
+              <span class="tag duo">2인 공동 개발 365/695</span>
+              <span class="tag">WPF · .NET 8</span>
+            </div>
+            <p>미국 주식 트레이딩 플랫폼. <strong>UI·차트를 제외한 설계와 로직</strong>을 담당했습니다 — 도메인 Core, AI·ML 모듈, 데이터 파이프라인, 문서 체계. 지표·전략·드로잉 도구를 <strong>플러그인 구조</strong>로 설계해 신규 추가가 "구현 1클래스 + 등록 1줄"로 끝나게 만들었습니다.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>기간</dt><dd>2026.04 — 2026.07</dd></div>
+            <div><dt>커밋</dt><dd>365 / 695</dd></div>
+            <div><dt>코드</dt><dd>+87,377줄</dd></div>
+            <div><dt>문서</dt><dd>226건</dd></div>
+          </dl>
+        </div>
+        <ol class="findings">
+          <li><span class="mk">▸</span><div>
+            <b>회귀 결함을 기억이 아니라 검출로 막기</b>
+            <span>같은 유형의 버그가 반복되자 <strong>"세 곳 동시 수정"을 테스트로 강제</strong>했습니다. 옵션을 하나 추가하면 저장·복원·렌더 세 곳에 결선해야 하는데, 빠뜨리면 리플렉션 회귀 테스트가 잡습니다. 빌드는 통과하는데 런타임에만 조용히 실패하는 종류를 겨냥한 장치입니다.</span>
+          </div></li>
+          <li><span class="mk">▸</span><div>
+            <b>Gemini 배치 분류</b>
+            <span>종목 3,000개를 배치 10 × 동시 3으로 처리해 테마·촉매·실적 요약을 생성합니다. 키 이중화와 재시도 헬퍼를 두어 <strong>호출이 거절당해도 작업 전체가 멈추지 않고 이어지게</strong> 했습니다.</span>
+          </div></li>
+        </ol>
+        <div class="stack"><b>C# / .NET 8</b><b>WPF · CommunityToolkit.Mvvm</b><b>Gemini API</b><b>Yahoo Finance</b><b>SQLite</b><b>플러그인 아키텍처</b></div>
+      </article>
     </section>
 
     <!-- 02 실시간 관제 -->
@@ -637,138 +719,9 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </div>
     </section>
 
-    <!-- 05 시스템 -->
-    <section id="system">
-      <p class="eyebrow">05 — 시스템 설계</p>
-      <h2>파는 물건으로 만들기</h2>
-      <p class="lede">
-        혼자 쓰는 도구와 남에게 파는 제품은 요구가 다릅니다.
-        고객마다 전략이 다르고, 알고리즘은 디컴파일로 새고, 잘못된 주문 한 번이 실제 돈을 잃습니다.
-      </p>
-
-      <article class="proj">
-        <div class="proj-head">
-          <div>
-            <div class="proj-title">
-              <h3>FrozenOlaf</h3>
-              <span class="tag solo">단독 개발 644/659</span>
-              <span class="tag">상용화 진행</span>
-            </div>
-            <p>키움증권 OpenAPI 기반 한국 주식 자동매매 시스템. 2020년에 직접 만들어 <strong>실제 계좌로 운용했던 반자동 프로그램</strong>을, 완전 무인 자동매매 + 판매 가능한 제품으로 재설계하고 있습니다.</p>
-          </div>
-          <dl class="meta">
-            <div><dt>기간</dt><dd>2026.06 — 진행 중</dd></div>
-            <div><dt>커밋</dt><dd>644 / 659</dd></div>
-            <div><dt>코드</dt><dd>+161,795줄</dd></div>
-            <div><dt>문서</dt><dd>91건</dd></div>
-          </dl>
-        </div>
-        <h3 style="margin-top:34px">무엇을 만들었나</h3>
-
-        <div class="flow">
-<pre><b>후보 좁히기</b>   <i>조건에 맞는 종목만 남긴다 — 실시간 구독은 100종목이 물리 상한이다</i>
-  │
-  ▼
-<b>실시간 시세</b>   증권사 서버에서 체결·호가를 계속 받는다
-  │
-  ▼
-<b>신호 판정</b>    전략이 "지금 사라 / 팔아라"를 판단  <i>전략은 갈아끼울 수 있는 부품</i>
-  │
-  ▼
-<b>주문 · 체결</b>  주문을 내고, 안 채워지면 취소하고, 채워진 만큼만 관리한다
-  │
-  ▼
-<b>청산 · 방어</b>  손절 · 시간 마감 · 비상 정지 · 응답이 끊기면 스스로 정리
-</pre>
-        </div>
-
-        <ul class="what">
-          <li><b>사람이 화면을 보고 있지 않아도 돌아갑니다.</b> 종목을 고르고, 사고, 지키고, 파는 것까지 프로그램이 합니다. 사람은 <b>어떤 전략을 켤지와 언제 멈출지</b>만 정합니다.</li>
-          <li><b>전략을 부품처럼 갈아끼웁니다.</b> 고객마다 매매 방식이 다르기 때문에, 전략 하나를 파일로 만들어 끼우면 <b>본체를 고치지 않고</b> 동작하도록 경계를 나눴습니다.</li>
-          <li><b>과거 데이터로 먼저 검증합니다.</b> 실제 돈을 넣기 전에 20년치 시세로 같은 전략을 돌려 성과·최대 손실·거래 횟수를 봅니다.</li>
-          <li><b>위험할 때 멈추는 장치를 여러 겹 넣었습니다.</b> 비상 정지, 주문 폭주 차단, 미체결 자동 취소, <b>프로그램이 응답을 멈추면 스스로 정리하는 장치</b>까지. 실제 돈이 걸린 시스템에서 가장 많이 손본 부분입니다.</li>
-          <li><b>밖에서도 확인하고 멈출 수 있습니다.</b> 텔레그램으로 현재 상태를 받고 원격으로 정지시킵니다.</li>
-        </ul>
-
-        <div class="shots">
-          <figure class="shot">
-            <img src="img/olaf-home.png" alt="FrozenOlaf 홈 화면 — 기능 전체와 시장 요약·알럿·텔레그램" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>홈 · 이 프로그램이 하는 일 전부</b>기능을 <strong>차트 · 조회/모니터링 · 분석/신호 · 자동매매</strong> 네 갈래로 나눠 놓았습니다. 위쪽은 지금 시장이 어떤지(지수·관심종목), 가운데는 <strong>전략이 잡아낸 신호를 시각별로 쌓은 알럿</strong>, 오른쪽은 <strong>텔레그램 연결</strong>입니다 — 자리에 없을 때 상태를 받고 원격으로 멈추는 통로입니다.</figcaption>
-          </figure>
-        </div>
-
-        <div class="shots two">
-          <figure class="shot">
-            <img src="img/olaf-backtest.png" alt="백테스트 화면 — 전략 성과 곡선과 거래 내역" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>백테스트 랩</b><strong>오른쪽에서 돌린 결과가 왼쪽 차트와 이어집니다.</strong> 결과 목록에서 종목을 클릭하면 차트가 그 종목으로 바뀌고 <strong>진입·청산 지점이 봉 위에 찍혀</strong>, 숫자만 보고 판단하지 않고 어디서 사고 팔았는지를 눈으로 확인합니다. 전략은 <strong>목록에서 골라 바꿔 끼우고</strong>, 고르면 그 전략의 설정값이 아래에 나타납니다 — RSI 기간·과매도선·추세 필터 같은 것을 <strong>노코드 방식으로 UI에서 조정</strong>합니다. 종목 범위(전체 / 표본 / 직접 입력), 기간, 종목당 투입 비율, 최대 보유 수, 슬리피지도 같은 방식이고, 자주 쓰는 조합은 <strong>프리셋으로 저장해 다시 부릅니다.</strong></figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="img/olaf-autotrade.png" alt="자동매매 관리 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>자동매매 관리 · 모의투자</b>오늘 무엇을 샀고 팔았는지, 어떤 전략이 켜져 있는지, 다음 후보로 무엇이 대기 중인지를 한 화면에서 봅니다. 종목마다 <strong>어느 전략이 낸 거래인지</strong>가 붙습니다 — 여러 전략이 같이 돌 때 한 종목을 두고 다투지 않도록 소유권을 정해뒀습니다.<br /><small style="color:var(--muted)">※ <strong>모의투자 계좌</strong> 화면입니다. 손익은 그날 시장 상황 그대로이고 보정하지 않았습니다.</small></figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="img/olaf-telegram.png" alt="텔레그램 원격 알림 — 주문 전송·거부·청산이 실시간으로 전달된다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>텔레그램 원격</b>자리에 없을 때 무슨 일이 일어나는지가 그대로 옵니다. 눈여겨볼 것은 성공 기록이 아니라 <strong>「주문 거부 — 주문 쿨다운 중」이 세 번 연속 찍힌 부분</strong>입니다. <strong>폭주 차단 장치가 실제로 작동한 흔적</strong>이고, 이런 것이 안 보이면 시스템이 조용히 무엇을 막았는지 알 방법이 없습니다. 아래로는 손절 청산과 슬롯 해제까지 이어집니다.</figcaption>
-          </figure>
-        </div>
-
-        <h3 style="margin-top:40px">그래서 무엇을 발견했나</h3>
-
-        <ol class="findings">
-          <li><span class="mk">▸</span><div>
-            <b>전략 교체가 가능한 프레임워크 구조</b>
-            <span>고객 전략을 <strong>DLL 하나로 끼우면 본체 수정 없이</strong> 동작하도록 계약 인터페이스를 분리했습니다. "계약 표면 = 고객 진입점의 전이 폐포"로 경계를 정의해, 어디까지가 공개 API이고 어디부터가 내부인지를 명확히 했습니다.</span>
-          </div></li>
-          <li><span class="mk">▸</span><div>
-            <b>알고리즘 유출 방지를 빌드로 강제</b>
-            <span>전략 로직이 판매본 DLL에 섞이면 디컴파일로 노출됩니다. <strong>어셈블리를 8개로 쪼개고 DTO 경계 + 참조 방향 + 빌드 구성</strong> 3겹으로 막았습니다. 사람이 조심하는 대신 <strong>빌드 스크립트가 위반을 차단</strong>합니다.</span>
-          </div></li>
-          <li><span class="mk">▸</span><div>
-            <b>실계좌 진입 전 하드닝 감사</b>
-            <span>독립된 관점으로 전수 감사해 CRITICAL 4건을 잡았습니다. 그중 하나는 <strong>비상 정지 스위치가 신규 매수뿐 아니라 청산까지 막고 있던 것</strong> — 위험할 때 팔지도 못하게 되는 결함이었습니다. 청산은 방어 주문으로 분류해 폭주 방지 게이트에서 면제하도록 고쳤습니다.</span>
-          </div></li>
-          <li><span class="mk">▸</span><div>
-            <b>거래 안전장치</b>
-            <span>매도 초과 주문 방지(매도가능수량 소비 모델), 동시호가 시각 계단 처리, 미체결 자동 취소, 재시작 시 보유종목 실시간 구독 유실 복구, dead-man's switch. <strong>실시간 구독 100종목 물리 상한</strong>이라는 제약에서 출발해 유니버스를 먼저 좁히는 구조로 재설계했습니다.</span>
-          </div></li>
-        </ol>
-        <div class="stack"><b>C# / .NET Framework 4.7.2 (x86)</b><b>.NET 8</b><b>WPF · MVVM · DI</b><b>키움 OpenAPI (COM/OCX)</b><b>SQLite</b><b>MS Access</b><b>Telegram Bot</b><b>xUnit</b></div>
-      </article>
-
-      <article class="proj">
-        <div class="proj-head">
-          <div>
-            <div class="proj-title">
-              <h3>TradingAi_Ver01</h3>
-              <span class="tag duo">2인 공동 개발 365/695</span>
-              <span class="tag">WPF · .NET 8</span>
-            </div>
-            <p>미국 주식 트레이딩 플랫폼. <strong>UI·차트를 제외한 설계와 로직</strong>을 담당했습니다 — 도메인 Core, AI·ML 모듈, 데이터 파이프라인, 문서 체계. 지표·전략·드로잉 도구를 <strong>플러그인 구조</strong>로 설계해 신규 추가가 "구현 1클래스 + 등록 1줄"로 끝나게 만들었습니다.</p>
-          </div>
-          <dl class="meta">
-            <div><dt>기간</dt><dd>2026.04 — 2026.07</dd></div>
-            <div><dt>커밋</dt><dd>365 / 695</dd></div>
-            <div><dt>코드</dt><dd>+87,377줄</dd></div>
-            <div><dt>문서</dt><dd>226건</dd></div>
-          </dl>
-        </div>
-        <ol class="findings">
-          <li><span class="mk">▸</span><div>
-            <b>회귀 결함을 기억이 아니라 검출로 막기</b>
-            <span>같은 유형의 버그가 반복되자 <strong>"세 곳 동시 수정"을 테스트로 강제</strong>했습니다. 옵션을 하나 추가하면 저장·복원·렌더 세 곳에 결선해야 하는데, 빠뜨리면 리플렉션 회귀 테스트가 잡습니다. 빌드는 통과하는데 런타임에만 조용히 실패하는 종류를 겨냥한 장치입니다.</span>
-          </div></li>
-          <li><span class="mk">▸</span><div>
-            <b>Gemini 배치 분류</b>
-            <span>종목 3,000개를 배치 10 × 동시 3으로 처리해 테마·촉매·실적 요약을 생성합니다. 키 이중화와 재시도 헬퍼를 두어 <strong>호출이 거절당해도 작업 전체가 멈추지 않고 이어지게</strong> 했습니다.</span>
-          </div></li>
-        </ol>
-        <div class="stack"><b>C# / .NET 8</b><b>WPF · CommunityToolkit.Mvvm</b><b>Gemini API</b><b>Yahoo Finance</b><b>SQLite</b><b>플러그인 아키텍처</b></div>
-      </article>
-    </section>
-
     <!-- 06 데이터 검증 -->
     <section id="audit">
-      <p class="eyebrow">06 — 데이터 검증</p>
+      <p class="eyebrow">05 — 데이터 검증</p>
       <h2>제 백테스트 수익률을<br />제 손으로 1,322%에서 397%로 내렸습니다.</h2>
       <p class="lede">
         전략을 잘못 만들어서가 아닙니다. <strong>데이터가 거짓말을 하고 있었고, 그걸 찾아내서 내린</strong> 숫자입니다.
@@ -817,6 +770,81 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         <strong>어느 방향으로 틀리든 전략의 순위는 바뀝니다.</strong>
         <cite>— 상장폐지 손실을 어떻게 셀지 정하면서</cite>
       </blockquote>
+    </section>
+
+    <!-- 01 AI 개발 체계 -->
+    <section id="harness">
+      <p class="eyebrow">06 — AI 개발 체계</p>
+      <h2>하네스(Harness) — 코드를 쓰기 전에 읽히는 체크리스트</h2>
+      <p class="lede">
+        AI는 지난주에 무엇이 잘못됐는지 기억하지 못합니다.
+        그래서 <strong>기억해야 할 것을 파일로 만들고, 작업 종류를 감지하면 자동으로 읽히게</strong> 했습니다.
+        "차트 지표를 추가해줘"라고 말하면 12단계 절차와 과거 결함 5종이 함께 따라옵니다.
+      </p>
+
+      <div class="flow">
+<pre>작업 요청 감지
+  │
+  ├─ <b>1. 트리거 매칭</b>   키워드 → 해당 도메인 하네스 문서 자동 로드
+  │                    <i>"OCX를 다루는 화면"이면 키움 하네스가 반드시 동반</i>
+  │
+  ├─ <b>2. 계획</b>         분해 · 의존성 · 위험 식별
+  │                    <i>사용자 승인 전에는 코드를 건드리지 않음</i>
+  │
+  ├─ <b>3. 구현</b>         테스트 우선 (RED → GREEN → 리팩토링)
+  │
+  ├─ <b>4. 교차 검토</b>     code-reviewer · security-reviewer 병렬 실행
+  │                    <i>서로 모르는 상태로 같은 코드를 보게 함</i>
+  │
+  ├─ <b>5. 배선 검증</b>     순수 함수 테스트로는 못 잡는 결함 —
+  │                    <i>콜백을 일부러 끊고 정확히 1건만 실패하는지 실측</i>
+  │
+  └─ <b>6. 박제</b>         재발 가능한 결함이면 하네스·규칙으로 승격
+                       <i>"이번만 예외"로 넘기지 않는다</i>
+</pre>
+      </div>
+
+      <div class="grid2">
+        <div class="cell">
+          <span class="k">16<small>종</small></span>
+          <h3>작업 유형별 하네스</h3>
+          <p>화면 추가, 버튼, 리스트, 팝업, 드래그-드롭, 백그라운드 서비스, 키움 OCX 호스팅, 전략 엔진까지. 각 문서가 <strong>절차 + 골격 코드 + 과거에 실제로 터진 결함 목록</strong>을 갖습니다. 작업 후 항목별로 통과 여부를 검증합니다.</p>
+        </div>
+        <div class="cell">
+          <span class="k">20<small>종</small></span>
+          <h3>역할별 서브에이전트</h3>
+          <p>계획·아키텍처·디버깅·보안·DB·테스트·빌드오류로 역할을 나눠 직접 정의했습니다. 프로젝트 전용 5종은 <strong>그 프로젝트에서만 통하는 함정</strong>을 압니다 — 키움 OCX 규칙 검사기, WPF 빌더 등.</p>
+        </div>
+        <div class="cell">
+          <span class="k">50<small>개</small></span>
+          <h3>영구 메모리</h3>
+          <p>세션이 끊겨도 남는 지식 파일. 결론만이 아니라 <strong>기각된 시도와 그 이유</strong>를 같이 적습니다. "이 방법은 개선율 −69.8%로 실패했다"가 성공 기록보다 자주 쓰입니다.</p>
+        </div>
+        <div class="cell">
+          <span class="k">17<small>조</small></span>
+          <h3>위반 시 중단 규칙</h3>
+          <p>권고가 아니라 <strong>어기면 작업을 멈추는</strong> 규칙입니다. 전부 실제로 사고가 난 뒤 승격된 항목이고, 상당수는 사람이 지키는 대신 <strong>테스트와 빌드 스크립트가 차단</strong>합니다.</p>
+        </div>
+      </div>
+
+      <blockquote class="pullquote">
+        순수 함수는 전부 통과하는데 배선만 끊긴 사고가 하루에 세 번 났습니다.
+        그래서 테스트를 셋으로 나눴습니다 — 순수 로직, 끝에서 끝까지 배선,
+        그리고 <strong>일부러 코드를 망가뜨려 테스트가 실제로 잡는지 확인하는 것.</strong>
+        <cite>— 배선 테스트를 도입한 이유</cite>
+      </blockquote>
+
+      <p>
+        에이전트를 여러 개 띄워 <strong>사실 검토 / 시니어 리뷰 / 보안 / 일관성 / 중복</strong> 각각의 관점으로 같은 코드를 보게 하는 방식도 씁니다.
+        실전 투입 전 감사에서 두 에이전트가 독립적으로 찾은 최상위 결함이 <strong>알고 보니 같은 근본 원인</strong>이었던 적이 있는데,
+        따로 도달한 결론은 신뢰도가 다릅니다. 반대로 한쪽만 지적한 항목은 우선 의심합니다.
+      </p>
+
+      <a class="repo-link" href="https://github.com/bosung2000/ai-dev-harness" rel="noopener">
+        <span class="rl-tag">공개 저장소</span>
+        <span class="rl-name">github.com/bosung2000/ai-dev-harness</span>
+        <span class="rl-desc">이 체계를 문서와 실행 가능한 도구로 정리해 공개했습니다. 커밋 전 API 키를 자동 차단하는 검사기와 훅은 그대로 복사해 쓰실 수 있습니다.</span>
+      </a>
     </section>
 
     <!-- 07 스택 -->
