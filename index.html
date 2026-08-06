@@ -49,9 +49,20 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .shell{display:grid;grid-template-columns:1fr}
 @media(min-width:1060px){.shell{grid-template-columns:186px minmax(0,1fr);gap:56px}}
 
-.index{display:none}
+/* 좁은 화면: 목차를 상단 가로 스크롤 바로 — 없애면 8섹션짜리 문서에 탐색 수단이 0이 된다 */
+.index{position:sticky;top:0;z-index:15;background:var(--paper);
+  border-bottom:1px solid var(--rule-soft);margin:0 -24px;padding:10px 0}
+.index ol{flex-direction:row;overflow-x:auto;gap:0;padding:0 18px;
+  scrollbar-width:none;-ms-overflow-style:none}
+.index ol::-webkit-scrollbar{display:none}
+.index a{white-space:nowrap;border-left:0;border-bottom:2px solid transparent;padding:4px 10px}
+.index a.on{border-bottom-color:var(--accent)}
 @media(min-width:1060px){.index{display:block;position:sticky;top:0;align-self:start;
-  height:100vh;padding:96px 0 40px;border-right:1px solid var(--rule-soft)}}
+  height:100vh;padding:96px 0 40px;margin:0;background:none;
+  border-bottom:0;border-right:1px solid var(--rule-soft)}
+  .index ol{flex-direction:column;overflow:visible;gap:2px;padding:0}
+  .index a{white-space:normal;border-bottom:0;border-left:2px solid transparent;padding:5px 12px}
+  .index a.on{border-left-color:var(--accent);border-bottom-color:transparent}}
 .index ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
 .index a{display:flex;gap:10px;text-decoration:none;padding:5px 12px;
   font-size:13px;color:var(--muted);border-left:2px solid transparent;
@@ -128,9 +139,13 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--paper-2);padding:
 .cell .k small{font-size:13px;color:var(--muted);font-weight:500;margin-left:4px;letter-spacing:0}
 
 /* 코드 흐름 */
-.flow{margin:32px 0 0;border:1px solid var(--rule);background:var(--field);
+.flow{position:relative;margin:32px 0 0;border:1px solid var(--rule);background:var(--field);
   font-family:var(--f-mono);font-size:12.5px;line-height:1.85;overflow-x:auto}
 .flow pre{margin:0;padding:22px 24px;white-space:pre;color:var(--ink-2)}
+/* 좁은 화면에서는 가로로 밀어야 읽히므로 그 사실을 알린다 */
+.flow::after{content:"← 좌우로 밀어서 보실 수 있습니다";position:sticky;left:0;display:block;
+  padding:0 24px 12px;font-size:10.5px;letter-spacing:.04em;color:var(--muted)}
+@media(min-width:820px){.flow::after{display:none}}
 .flow pre b{color:var(--accent);font-weight:700}
 .flow pre i{color:var(--cool);font-style:normal}
 
@@ -194,6 +209,8 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--paper-2);padding:
 @media(min-width:860px){.shots.two{grid-template-columns:1fr 1fr}}
 figure.shot{margin:0;background:var(--paper);padding:14px}
 figure.shot img{display:block;width:100%;height:auto;border:1px solid var(--rule-soft);background:var(--field)}
+.img-miss{padding:22px 16px;border:1px dashed var(--rule);background:var(--paper-2);
+  font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:center}
 figure.shot figcaption{margin:10px 2px 0;font-size:12.5px;color:var(--muted);line-height:1.6}
 figure.shot figcaption b{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.07em;
   text-transform:uppercase;color:var(--accent);margin-bottom:4px}
@@ -273,17 +290,27 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </div>
 
       <dl class="figures">
-        <div class="fig"><dt>작성 코드</dt><dd>311,313<span>줄</span></dd></div>
-        <div class="fig"><dt>커밋</dt><dd>1,202<span>회</span></dd></div>
+        <div class="fig"><dt>내가 내린 내 수익률</dt><dd>1,322<span>%</span> → 397<span>%</span></dd></div>
+        <div class="fig"><dt>공개 코드 · 테스트</dt><dd>2.3<span>만 줄</span> · 377<span>건</span></dd></div>
         <div class="fig"><dt>설계 문서</dt><dd>393<span>건</span></dd></div>
         <div class="fig"><dt>기간</dt><dd>5<span>개월</span></dd></div>
       </dl>
 
+      <div class="flow" style="margin-top:44px">
+<pre><b>2020</b>              매매 프로그램을 직접 만들어 <b>제 계좌로 운용</b> — 손실로 끝났다
+<b>2021~2023</b>         퀀트·차트 연구  <i>결과가 좋게 나올 때마다 왜 좋은지를 파고들었다</i>
+<b>2023.07~2025.01</b>   <b>육군 만기 전역</b>
+<b>2025.01~06</b>        국비 교육 수료(Unity 게임개발 6개월)  <i>프로그래밍을 체계적으로 다시</i>
+<b>2025.06~2026.02</b>   게임 개인 프로젝트 시도 — <b>완성하지 못했다.</b> 주식 연구는 계속
+<b>2026.03~</b>          <b>지금 — 아래 다섯 시스템</b>
+</pre>
+      </div>
+
       <div class="disclose">
         <span class="dl-tag">먼저 밝힙니다</span>
-        <p><strong>이 코드는 Claude Code를 도구로 써서 작성했습니다.</strong> 위 숫자를 그대로 읽으면 5개월에 31만 줄, 하루 평균 2,000줄입니다. <strong>사람이 손으로 쓸 수 있는 속도가 아닙니다.</strong> 그래서 줄 수를 실적으로 내밀지 않겠습니다.</p>
+        <p><strong>이 코드는 Claude Code를 도구로 써서 작성했습니다.</strong> 5개월간 <strong>31만 줄 · 커밋 1,202회</strong>를 썼는데, 그대로 읽으면 하루 평균 2,000줄입니다. <strong>사람이 손으로 쓸 수 있는 속도가 아닙니다.</strong> 그래서 위 지표에서 줄 수를 뺐고, 실적으로도 내밀지 않겠습니다.</p>
         <p>대신 내밀 수 있는 것은 이것입니다 — <strong>AI가 내놓은 결과 중 무엇을 기각했는지, 왜 기각했는지, 그리고 그 판단을 다음번에는 사람이 아니라 테스트가 하게 만들려고 무엇을 만들었는지.</strong> 아래에 적힌 발견들은 대부분 AI가 준 답을 제가 의심해서 나온 것입니다.</p>
-        <p>설계 결정·검증 방법·기각 판단은 전부 제가 내렸습니다. <strong>어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</strong></p>
+        <p>설계 결정·검증 방법·기각 판단은 전부 제가 내렸습니다. <strong>어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</strong> 말로만 드리는 약속이 아니라, <a href="https://github.com/bosung2000/IoTSensorDashboard/blob/main/docs/reliability-lessons.md" rel="noopener" style="color:var(--accent)">공개 저장소의 이 문서</a>에 <strong>제가 낸 결함 12건을 증상·원인·왜 못 봤는지까지</strong> 적어 두었습니다. 지금 열어보실 수 있습니다.</p>
       </div>
     </header>
 
@@ -347,22 +374,22 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
         <div class="shots">
           <figure class="shot">
-            <img src="img/olaf-home.png" alt="FrozenOlaf 홈 화면 — 기능 전체와 시장 요약·알럿·텔레그램" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/olaf-home.png" alt="FrozenOlaf 홈 화면 — 기능 전체와 시장 요약·알럿·텔레그램" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>홈 · 이 프로그램이 하는 일 전부</b>기능을 <strong>차트 · 조회/모니터링 · 분석/신호 · 자동매매</strong> 네 갈래로 나눠 놓았습니다. 위쪽은 지금 시장이 어떤지(지수·관심종목), 가운데는 <strong>전략이 잡아낸 신호를 시각별로 쌓은 알럿</strong>, 오른쪽은 <strong>텔레그램 연결</strong>입니다 — 자리에 없을 때 상태를 받고 원격으로 멈추는 통로입니다.</figcaption>
           </figure>
         </div>
 
         <div class="shots two">
           <figure class="shot">
-            <img src="img/olaf-backtest.png" alt="백테스트 화면 — 전략 성과 곡선과 거래 내역" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/olaf-backtest.png" alt="백테스트 화면 — 전략 성과 곡선과 거래 내역" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>백테스트 랩</b><strong>오른쪽에서 돌린 결과가 왼쪽 차트와 이어집니다.</strong> 결과 목록에서 종목을 클릭하면 차트가 그 종목으로 바뀌고 <strong>진입·청산 지점이 봉 위에 찍혀</strong>, 숫자만 보고 판단하지 않고 어디서 사고 팔았는지를 눈으로 확인합니다. 전략은 <strong>목록에서 골라 바꿔 끼우고</strong>, 고르면 그 전략의 설정값이 아래에 나타납니다 — RSI 기간·과매도선·추세 필터 같은 것을 <strong>노코드 방식으로 UI에서 조정</strong>합니다. 종목 범위(전체 / 표본 / 직접 입력), 기간, 종목당 투입 비율, 최대 보유 수, 슬리피지도 같은 방식이고, 자주 쓰는 조합은 <strong>프리셋으로 저장해 다시 부릅니다.</strong></figcaption>
           </figure>
           <figure class="shot">
-            <img src="img/olaf-autotrade.png" alt="자동매매 관리 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/olaf-autotrade.png" alt="자동매매 관리 화면" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>자동매매 관리 · 모의투자</b>오늘 무엇을 샀고 팔았는지, 어떤 전략이 켜져 있는지, 다음 후보로 무엇이 대기 중인지를 한 화면에서 봅니다. 종목마다 <strong>어느 전략이 낸 거래인지</strong>가 붙습니다 — 여러 전략이 같이 돌 때 한 종목을 두고 다투지 않도록 소유권을 정해뒀습니다.<br /><small style="color:var(--muted)">※ <strong>모의투자 계좌</strong> 화면입니다. 손익은 그날 시장 상황 그대로이고 보정하지 않았습니다.</small></figcaption>
           </figure>
           <figure class="shot">
-            <img src="img/olaf-telegram.png" alt="텔레그램 원격 알림 — 주문 전송·거부·청산이 실시간으로 전달된다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/olaf-telegram.png" alt="텔레그램 원격 알림 — 주문 전송·거부·청산이 실시간으로 전달된다" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>텔레그램 원격</b>자리에 없을 때 무슨 일이 일어나는지가 그대로 옵니다. 눈여겨볼 것은 성공 기록이 아니라 <strong>「주문 거부 — 주문 쿨다운 중」이 세 번 연속 찍힌 부분</strong>입니다. <strong>폭주 차단 장치가 실제로 작동한 흔적</strong>이고, 이런 것이 안 보이면 시스템이 조용히 무엇을 막았는지 알 방법이 없습니다. 아래로는 손절 청산과 슬롯 해제까지 이어집니다.</figcaption>
           </figure>
         </div>
@@ -390,9 +417,9 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         <h3 style="margin-top:40px">그래서 어떻게 됐나</h3>
 
         <ul class="what">
-          <li><b>모의투자 계좌로 2주 무중단 운용했습니다.</b> 그동안 위 안전장치들이 실제로 발동했고, 무엇이 왜 막혔는지가 텔레그램에 그대로 남았습니다.</li>
-          <li><b>실계좌는 아직 돌리지 않습니다.</b> 프로그램이 준비되지 않아서가 아니라 <b>넣을 전략이 준비되지 않았기 때문</b>입니다. 백테스트에서 실계좌에 넣을 만한 성적이 나오는 전략을 아직 못 찾았습니다. <b>돈이 걸린 판단이라 확인되지 않은 것을 켜지 않습니다.</b></li>
+          <li><b>모의투자 계좌로 2주 무중단 운용했습니다.</b> 그동안 위 안전장치들이 실제로 발동했고, <b>무엇이 왜 막혔는지가 전부 기록으로 남았습니다.</b> 안전장치가 있다는 것과 발동하는 것을 확인한 것은 다릅니다.</li>
           <li><b>판매는 외주 플랫폼에 등록한 단계입니다.</b> 아직 수주는 없습니다. 「상용화 완료」가 아니라 <b>여기까지 왔다</b>는 뜻으로 적습니다.</li>
+          <li><b>실계좌는 아직 돌리지 않습니다.</b> 프로그램이 준비되지 않아서가 아니라 <b>넣을 전략이 준비되지 않았기 때문</b>입니다. 백테스트에서 실계좌에 넣을 만한 성적이 나오는 전략을 아직 못 찾았습니다. <b>확인되지 않은 것을 돈이 걸린 자리에 켜지 않는다</b> — 이 시스템에서 가장 많이 손댄 것이 그 판단을 강제하는 장치들입니다.</li>
         </ul>
 
         <div class="stack"><b>C# / .NET Framework 4.7.2 (x86)</b><b>.NET 8</b><b>WPF · MVVM · DI</b><b>키움 OpenAPI (COM/OCX)</b><b>SQLite</b><b>MS Access</b><b>Telegram Bot</b><b>xUnit</b></div>
@@ -425,6 +452,15 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
             <span>종목 3,000개를 배치 10 × 동시 3으로 처리해 테마·촉매·실적 요약을 생성합니다. 키 이중화와 재시도 헬퍼를 두어 <strong>호출이 거절당해도 작업 전체가 멈추지 않고 이어지게</strong> 했습니다.</span>
           </div></li>
         </ol>
+
+        <h3 style="margin-top:40px">둘이서 어떻게 나눴나</h3>
+
+        <ul class="what">
+          <li><b>경계는 「차트·UI」와 「그 외 전부」였습니다.</b> 저는 도메인 Core·AI/ML 모듈·데이터 파이프라인·문서 체계를 맡았고, 차트 렌더링과 화면은 동료가 주도했습니다. <b>이 경계 때문에 플러그인 구조가 필요했습니다</b> — 지표·전략·드로잉을 각자 "구현 1클래스 + 등록 1줄"로 붙이면 서로의 코드를 건드릴 일이 없습니다.</li>
+          <li><b>의견이 갈리면 목소리로 정하지 않았습니다.</b> 먼저 대화로 <b>무엇 때문에 갈리는지</b>를 파고들어 합의점을 만들고, 그 결론이 맞는지를 <b>AI로 교차 검증한 뒤</b> 확정했습니다. 둘 다 확신이 없을 때 "누가 더 오래 했나"로 정하면 나중에 되돌리기 어렵습니다.</li>
+          <li><b>기여 경계를 지금도 그대로 지킵니다.</b> 차트 엔진은 동료 영역이라 <b>제 실적에 넣지 않았고</b>, 이 포트폴리오의 화면 캡처에서도 뺐습니다.</li>
+        </ul>
+
         <div class="stack"><b>C# / .NET 8</b><b>WPF · CommunityToolkit.Mvvm</b><b>Gemini API</b><b>Yahoo Finance</b><b>SQLite</b><b>플러그인 아키텍처</b></div>
       </article>
     </section>
@@ -493,15 +529,15 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
         <div class="shots two">
           <figure class="shot">
-            <img src="img/iot-controlroom.png" alt="관제실 화면 — 파이프라인 처리 현황과 감지 피드" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>관제실</b>센서 → 수집 큐 → 저장 → 중복 접음 → 화면까지, 각 단계가 지금 몇 건을 안고 있는지를 그대로 보여줍니다. 아래 <strong>「중복 접음 0」이 01번 결함을 5초 만에 드러낸 그 카운터</strong>입니다. 처리 지연 108.5µs · 백로그 0.</figcaption>
+            <img src="img/iot-controlroom.png" alt="관제실 화면 — 파이프라인 처리 현황과 감지 피드" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
+            <figcaption><b>관제실</b>센서 → 수집 큐 → 저장 → 중복 접음 → 화면까지, 각 단계가 지금 몇 건을 안고 있는지를 그대로 보여줍니다. 아래 <strong>「중복 접음 0」이 01번 결함을 5초 만에 드러낸 그 카운터</strong>입니다. 지연·처리량 수치는 조건에 따라 달라지므로 <strong>아래 실측표에 조건과 함께</strong> 적었습니다.</figcaption>
           </figure>
           <figure class="shot">
-            <img src="img/iot-dashboard.png" alt="대시보드 화면 — 매장별 상태 패널" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/iot-dashboard.png" alt="대시보드 화면 — 매장별 상태 패널" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>대시보드</b>매장별 유입·유출과 현재 체류 인원, 본사–본부–매장 계통도, 가동률, 상위 센서, 최근 사건을 한 화면에 모았습니다. <strong>「이번 세션」·「전체 기간」처럼 기준을 라벨에 적어둔 것이 04번 결함을 고친 결과</strong>입니다.</figcaption>
           </figure>
           <figure class="shot">
-            <img src="img/iot-sensorfarm.png" alt="센서팜 화면 — 센서 1,000대 타일 격자와 부하 발생기" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/iot-sensorfarm.png" alt="센서팜 화면 — 센서 1,000대 타일 격자와 부하 발생기" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>센서팜</b>센서 1,000대를 타일 하나씩으로 그립니다. 상단 버튼으로 <strong>발신 속도를 현실부터 극한(20,000/s)까지 바꾸고 이상치를 주입</strong>합니다. 실측 발신량과 유실 건수가 아래에 붙습니다.</figcaption>
           </figure>
         </div>
@@ -543,7 +579,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
         <ul class="what">
           <li><b>버텼습니다 — 그리고 어디서 막히는지도 알아냈습니다.</b> 병목은 발행이 아니라 <b>저장</b>이었습니다. 초당 2만 건을 던지면 저장이 1만 7천 건에서 상한에 걸리고, 남는 것은 대기열에 쌓이다 폐기됩니다. <b>폐기는 숨기지 않고 세어서 화면에 올립니다.</b></li>
-          <li><b>그래서 센서 몇 대까지 되는지도 계산됩니다.</b> 분당 1회 보고 기준으로 <b>약 50만 대</b>가 한계선입니다. 요구된 규모의 500배입니다.</li>
+          <li><b>그래서 센서 몇 대까지 되는지도 계산됩니다.</b> 센서 하나가 <b>들어옴·나감 두 건</b>을 보내므로 분당 1회 보고면 센서당 초당 2/60건입니다. 저장 능력 17,000으로 나누면 <b>약 50만 대</b>가 한계선입니다.</li>
           <li><b>다만 이 숫자는 저장 능력만 재본 값입니다.</b> 그 규모를 실제로 주장하려면 브로커 연결 수·메모리·센서별 상태 추적도 함께 재봐야 하는데 <b>아직 재보지 않았습니다.</b> 재보지 않은 것을 능력치로 말하지 않습니다.</li>
         </ul>
 
@@ -636,15 +672,15 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
         <div class="shots two">
           <figure class="shot">
-            <img src="img/llm-chat-single.png" alt="종목 대화 화면 — 답변에 근거 각주가 붙어 있다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/llm-chat-single.png" alt="종목 대화 화면 — 답변에 근거 각주가 붙어 있다" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>종목 대화 · 근거 표시</b>"경영진의 향후 전망을 정리해줘"에 대한 답변입니다. 중요한 건 답의 내용이 아니라 <strong>문장마다 붙은 각주와 맨 아래 출처 목록</strong>입니다 — 어느 보고서의 어느 항목에서 가져왔는지가 <strong>제출일·문서종류까지</strong> 찍힙니다. 근거를 못 찾으면 지어내지 않고 그렇게 말하도록 했습니다.</figcaption>
           </figure>
           <figure class="shot">
-            <img src="img/llm-chat-compare.png" alt="두 종목 비교 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/llm-chat-compare.png" alt="두 종목 비교 화면" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>두 회사 비교</b>같은 항목을 두 회사에서 각각 꺼내 나란히 놓습니다. <strong>회계연도가 다르면 비교가 성립하지 않으므로</strong> 어느 해 보고서에서 나온 수치인지를 함께 적게 했습니다.</figcaption>
           </figure>
           <figure class="shot">
-            <img src="img/llm-disclosure-search.png" alt="공시 조회 화면 — 제출 목록과 분석 리포트" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <img src="img/llm-disclosure-search.png" alt="공시 조회 화면 — 제출 목록과 분석 리포트" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
             <figcaption><b>공시 조회 · 리포트 생성</b>종목을 넣으면 실제 제출 이력(연차·분기·내부자 거래·대량 보유)을 끌어와 목록으로 놓고, 거기서 분석 리포트를 만듭니다. 왼쪽 탭이 <strong>「어조 변화」·「내용 변화」</strong>인 이유는 <strong>이번 보고서가 지난번과 무엇이 달라졌는지가 실제 신호</strong>이기 때문입니다.</figcaption>
           </figure>
         </div>
@@ -716,22 +752,30 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </ol>
       <div class="shots two">
         <figure class="shot">
-          <img src="img/ml-inference.png" alt="추론 화면 — 봉별 확률과 SHAP 기여도 분해" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <img src="img/ml-inference.png" alt="추론 화면 — 봉별 확률과 SHAP 기여도 분해" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
           <figcaption><b>추론 · 왜 그 확률인지</b>종목과 날짜를 넣으면 특성 33개를 자동으로 뽑아 Python 서버가 봉마다 확률을 냅니다. 오른쪽이 <strong>그 숫자가 왜 나왔는지의 분해</strong>입니다 — 무엇이 확률을 올렸고 무엇이 끌어내렸는지. <strong>확률만 나오면 믿을 근거가 없습니다.</strong></figcaption>
         </figure>
         <figure class="shot">
-          <img src="img/ml-probability-gate.png" alt="확률 게이트 백테스트 비교 — 원본 대비 필터 적용" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <img src="img/ml-probability-gate.png" alt="확률 게이트 백테스트 비교 — 원본 대비 필터 적용" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
           <figcaption><b>모델을 실제로 끼워 본 결과</b>확률이 임계값을 넘을 때만 진입하도록 걸어 3년치를 다시 돌렸습니다. 거래가 <strong>332건 → 20건</strong>으로 줄고 손익비가 <strong>1.96 → 14.77</strong>이 됐습니다. 다만 <strong>20건은 결론을 내기엔 적은 표본</strong>이라, 이 숫자를 성과로 쓰지 않고 <strong>"게이트가 실제로 작동한다"는 확인까지만</strong> 씁니다.</figcaption>
         </figure>
         <figure class="shot">
-          <img src="img/ml-calibration.png" alt="신뢰도 곡선 — 예측 확률 대비 실제 빈도" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <img src="img/ml-calibration.png" alt="신뢰도 곡선 — 예측 확률 대비 실제 빈도" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
           <figcaption><b>신뢰도 곡선 · 승리 예측</b>가로가 모델이 말한 확률, 세로가 실제로 그렇게 된 비율입니다. <strong>대각선에 붙을수록 그 숫자를 믿어도 된다</strong>는 뜻이고, 아래로 처지면 모델이 자신을 과신하고 있다는 뜻입니다.</figcaption>
         </figure>
         <figure class="shot">
-          <img src="img/ml-calibration-2r.png" alt="신뢰도 곡선 — 목표 수익 도달 예측" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+          <img src="img/ml-calibration-2r.png" alt="신뢰도 곡선 — 목표 수익 도달 예측" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
           <figcaption><b>신뢰도 곡선 · 목표 도달</b>같은 모델도 <strong>무엇을 맞히라고 시키느냐에 따라 신뢰도가 다릅니다.</strong> 그래서 목표(승리 / 목표가 도달 / 손절 히트)와 기간(60봉 / 240봉)별로 따로 뽑아 비교했습니다.</figcaption>
         </figure>
       </div>
+
+      <h3 style="margin-top:40px">그래서 어떻게 됐나</h3>
+
+      <ul class="what">
+        <li><b>모델을 백테스트에 실제로 끼워 봤습니다.</b> 확률이 임계값을 넘을 때만 진입하도록 걸어 3년치를 다시 돌렸더니 거래가 <b>332건 → 20건</b>으로 줄고 손익비가 <b>1.96 → 14.77</b>이 됐습니다.</li>
+        <li><b>다만 이것을 성과로 쓰지 않습니다.</b> <b>20건은 결론을 내기엔 적은 표본</b>입니다. 여기서 말할 수 있는 것은 「게이트가 실제로 작동한다」는 확인까지이고, 그 이상은 표본이 쌓인 뒤에 말하겠습니다.</li>
+        <li><b>확률을 그대로 포지션 크기에 쓰지는 않습니다.</b> 신뢰도가 목표·기간 조합마다 다르게 나오기 때문에, <b>어느 조합에서 믿을 만한지를 먼저 재고</b> 그 범위 안에서만 씁니다.</li>
+      </ul>
 
       <div class="stack"><b>Python 3,554줄</b><b>LightGBM</b><b>scikit-learn</b><b>SHAP</b><b>pandas · numpy</b><b>FastAPI · uvicorn</b><b>pytest</b><b>matplotlib</b></div>
 
@@ -740,7 +784,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </div>
     </section>
 
-    <!-- 06 데이터 검증 -->
+    <!-- 05 데이터 검증 -->
     <section id="audit">
       <p class="eyebrow">05 — 데이터 검증</p>
       <h2>제 백테스트 수익률을<br />제 손으로 1,322%에서 397%로 내렸습니다.</h2>
@@ -757,7 +801,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
           <div class="val">+1,322.9%</div>
         </div>
         <div class="row">
-          <div class="label">데이터를 고친 뒤<small>거래소 전수 3,211종목</small></div>
+          <div class="label">데이터를 고친 뒤<small>같은 전략 · 백테스트 대상 3,211종목</small></div>
           <div class="bar b-true"><i style="width:30%"></i></div>
           <div class="val">+397.3%</div>
         </div>
@@ -781,7 +825,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       <h3 style="margin-top:40px">그래서 어떻게 됐나</h3>
 
       <ul class="what">
-        <li><b>시세를 통째로 다시 모았습니다.</b> 요청 방식을 바꿔 거래소에서 전수로 받아 <b>일봉 916만 행 · 3,669종목</b>이 됐고, 여기에 <b>상장폐지된 863개</b>가 구조적으로 포함됩니다. 다시 빠질 수 없는 방식이라는 게 핵심입니다.</li>
+        <li><b>시세를 통째로 다시 모았습니다.</b> 요청 방식을 바꿔 거래소에서 전수로 받아 <b>일봉 916만 행 · 3,669종목</b>(2010~2026 누적)이 됐고, 여기에 <b>상장폐지된 863개</b>가 구조적으로 포함됩니다. 다시 빠질 수 없는 방식이라는 게 핵심입니다.<br /><small style="color:var(--muted)">※ 위 막대의 3,211종목은 <b>백테스트를 실제로 돌린 대상</b>이고, 3,669는 <b>수집한 전체</b>입니다 — 기간과 조건이 다릅니다.</small></li>
         <li><b>재무도 전수로 모았습니다.</b> 금융감독원 공시 시스템에서 <b>보고서 107,745건을 한 건도 실패 없이 받아 재무 1,163만 행</b>을 쌓았습니다. 분기·반기까지 포함해 <b>어느 시점에 무엇이 공시돼 있었는지</b>를 그대로 재현할 수 있게 했습니다 — 나중에 공시된 숫자를 과거 시점에 쓰면 그것도 미래를 훔쳐보는 것입니다.</li>
         <li><b>지금 모든 백테스트가 이 데이터 위에서 돕니다.</b> 4.2GB짜리 데이터베이스 하나이고, 앞서 나온 <b>전략 검증도 전부 여기서 나온 숫자</b>입니다. 데이터를 먼저 고친 이유가 이것입니다.</li>
       </ul>
@@ -794,7 +838,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </blockquote>
     </section>
 
-    <!-- 01 AI 개발 체계 -->
+    <!-- 06 AI 개발 체계 -->
     <section id="harness">
       <p class="eyebrow">06 — AI 개발 체계</p>
       <h2>하네스(Harness) — 코드를 쓰기 전에 읽히는 체크리스트</h2>
@@ -920,9 +964,14 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
     </section>
 
     <footer>
+      <p style="max-width:66ch;font-family:var(--f-body);font-size:14.5px;color:var(--ink-2);margin:0 0 18px">
+        <strong style="color:var(--ink)">보고 싶으신 쪽을 말씀해 주시면 30분이면 됩니다.</strong>
+        FrozenOlaf의 어셈블리 경계 설계든, Alpha-Redline의 검증층이든 <strong>화면을 열어 놓고 설명드릴 수 있습니다.</strong><br />
+        이력서·자기소개서는 별도로 제출하며, 요청 주시면 바로 드립니다.
+      </p>
       <div class="fl">
         <p>고보성 · AI 시스템 엔지니어링 · 금융 도메인</p>
-        <p><a href="mailto:gobosung2000@gmail.com" style="color:inherit">gobosung2000@gmail.com</a></p>
+        <p><a href="mailto:gobosung2000@gmail.com" style="color:inherit">gobosung2000@gmail.com</a> · <a href="https://github.com/bosung2000" rel="noopener" style="color:inherit">github.com/bosung2000</a></p>
       </div>
     </footer>
 
