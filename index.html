@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,6 +13,7 @@
 <style>
 /* ── 토큰 ───────────────────────────────── */
 :root{
+  color-scheme:light;
   --paper:#F5F6F7; --paper-2:#EDEFF1; --ink:#191B1F; --ink-2:#3D424A;
   --muted:#6B7280; --rule:#D5D9DE; --rule-soft:#E3E6EA;
   --accent:#A32B26; --accent-dim:#C4736E;
@@ -26,10 +27,12 @@
     --rule:#2B3038;--rule-soft:#22262C;--accent:#E06A61;--accent-dim:#8E4540;
     --cool:#6D9EDC;--cool-dim:#3E5B85;--field:#0C0E11;}
 }
-:root[data-theme="dark"]{--paper:#121417;--paper-2:#191C21;--ink:#E6E8EA;--ink-2:#B4BAC2;--muted:#858C97;
+:root[data-theme="dark"]{color-scheme:dark;
+  --paper:#121417;--paper-2:#191C21;--ink:#E6E8EA;--ink-2:#B4BAC2;--muted:#858C97;
   --rule:#2B3038;--rule-soft:#22262C;--accent:#E06A61;--accent-dim:#8E4540;
   --cool:#6D9EDC;--cool-dim:#3E5B85;--field:#0C0E11;}
-:root[data-theme="light"]{--paper:#F5F6F7;--paper-2:#EDEFF1;--ink:#191B1F;--ink-2:#3D424A;--muted:#6B7280;
+:root[data-theme="light"]{color-scheme:light;
+  --paper:#F5F6F7;--paper-2:#EDEFF1;--ink:#191B1F;--ink-2:#3D424A;--muted:#6B7280;
   --rule:#D5D9DE;--rule-soft:#E3E6EA;--accent:#A32B26;--accent-dim:#C4736E;
   --cool:#2C5FA8;--cool-dim:#7C9BC7;--field:#FFFFFF;}
 
