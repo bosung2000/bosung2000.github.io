@@ -748,56 +748,43 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       <p class="eyebrow">06 — 데이터 검증</p>
       <h2>제 백테스트 수익률을<br />제 손으로 1,322%에서 397%로 내렸습니다.</h2>
       <p class="lede">
-        전략을 튜닝해서 올린 숫자가 아니라, <strong>데이터가 거짓말하고 있다는 것을 찾아내서 내린</strong> 숫자입니다.
-        AI가 만든 결과를 검증하는 일과 데이터가 만든 결과를 검증하는 일은 같은 근육을 씁니다.
+        전략을 잘못 만들어서가 아닙니다. <strong>데이터가 거짓말을 하고 있었고, 그걸 찾아내서 내린</strong> 숫자입니다.
+        좋게 나온 결과를 그대로 믿었다면 이 차이만큼 <strong>실제 돈으로 확인했을 것</strong>입니다.
       </p>
 
       <div class="audit">
         <div class="row">
-          <div class="label">최초 측정값<small>운영 DB · 1,321종목</small></div>
+          <div class="label">처음 나온 수치<small>손에 있던 데이터 1,321종목</small></div>
           <div class="bar b-void"><i style="width:100%"></i></div>
-          <div class="val">+1,322.9%<small>MDD 16.2%</small></div>
+          <div class="val">+1,322.9%</div>
         </div>
         <div class="row">
-          <div class="label">생존편향 제거 후<small>KRX 전수 · 3,211종목</small></div>
+          <div class="label">데이터를 고친 뒤<small>거래소 전수 3,211종목</small></div>
           <div class="bar b-true"><i style="width:30%"></i></div>
-          <div class="val">+397.3%<small>MDD 41.9%</small></div>
-        </div>
-        <div class="row">
-          <div class="label">청산 규칙 재설계 후<small>손절 1% · 재검증</small></div>
-          <div class="bar b-fix"><i style="width:93.8%"></i></div>
-          <div class="val">+1,241.3%<small>MDD 27.9%</small></div>
+          <div class="val">+397.3%</div>
         </div>
       </div>
 
       <ol class="findings">
         <li><span class="mk">01</span><div>
-          <b>표본에 살아남은 종목만 있었습니다</b>
-          <span>2016년 기준 실제 2,065종목 중 데이터베이스에는 1,321개뿐 — <strong class="hi">783종목(38%) 누락</strong>이었고 누락분 상위가 전부 상장폐지 종목이었습니다. KRX 공식 API를 <strong>종목이 아니라 날짜축으로</strong> 호출하도록 수집기를 다시 짜서, 916만 행·3,669종목·<strong>폐지 종목 863개가 구조적으로 자동 포함</strong>되게 만들었습니다.</span>
+          <b>망한 회사를 지운 데이터로 수익률을 재고 있었습니다</b>
+          <span>과거 주가를 종목 코드로 요청하면 <strong>지금 남아 있는 회사만</strong> 돌아옵니다. 망해서 사라진 회사는 목록에 아예 없습니다. 2016년에 실제로 2,065개가 거래되고 있었는데 제 데이터에는 1,321개뿐이었고, <strong class="hi">빠진 783개 대부분이 상장폐지된 회사</strong>였습니다. 그 종목을 사서 본 손실은 통째로 사라지고 살아남은 종목의 수익만 남으니, 성적이 좋을 수밖에 없었습니다. 요청 방식을 「이 종목의 과거」가 아니라 <strong>「이 날짜에 거래된 전부」</strong>로 바꾸자 폐지 종목 863개가 저절로 들어왔고, 그때 나온 숫자가 397%입니다.</span>
         </div></li>
         <li><span class="mk">02</span><div>
-          <b>못 판 주식을 아예 세지 않고 있었습니다</b>
-          <span>엔진이 마지막 봉에서 미청산 포지션을 버렸습니다. 실측 <strong>339건 평균 −12.34%</strong>. 오래 물릴수록 청산이 안 나오므로, 버리면 <strong>손실만 골라서 사라집니다.</strong></span>
+          <b>검사 결과가 나빠지는 것이 옳은 방향일 때가 있습니다</b>
+          <span>주가에는 액면분할처럼 <strong>회사 사정으로 생긴 인위적인 가격 변동</strong>이 섞여 있어 이를 걷어내는 보정을 합니다. 보정이 잘 됐는지 재는 검사에서 이상 건수가 <strong>48건 → 2,259건</strong>으로 나빠졌는데, 그게 맞는 방향이었습니다. 전에 깨끗했던 이유는 <strong>상장폐지 직전의 진짜 폭락까지 인위적 변동으로 오해해 지우고 있었기</strong> 때문입니다. 이 검사 수치를 좋게 만들려고 들면 정확히 반대로 갑니다. <strong>지표를 만들 때는 그 지표가 무엇을 보상하는지 먼저 봐야 했습니다.</strong></span>
         </div></li>
         <li><span class="mk">03</span><div>
-          <b>검증 지표가 나빠지는 게 개선인 경우</b>
-          <span>보정 잔여 이상치가 48건 → 2,259건으로 늘었는데 그게 옳은 방향이었습니다. 전에 깨끗했던 이유는 <strong>상장폐지 폭락을 자본변동으로 오인해 지우고 있었기</strong> 때문입니다. 이 지표를 최소화하려 들면 정확히 반대로 갑니다.</span>
-        </div></li>
-        <li><span class="mk">04</span><div>
-          <b>수익 2배가 실력인지 운인지 측정</b>
-          <span>집중 투자가 분산보다 수익 2배로 나왔을 때 <strong>부트스트랩(종목 풀 70% 랜덤 추출 40회)</strong>으로 분포를 만들었습니다. 초과수익은 전부 상위 10%에서 나왔고 <strong>하위 10%는 1%도 개선되지 않았습니다</strong> — 운이었습니다. 단일 실행값으로는 운을 가릴 수 없습니다.</span>
-        </div></li>
-        <li><span class="mk">05</span><div>
-          <b>실패한 방법을 지우지 않고 남겼습니다</b>
-          <span>수정주가 보정을 세 번 시도해 두 번 실패했습니다(개선율 −17.5% · −69.8%). 세 번째 방법이 통과한 뒤에도 <strong>실패한 둘을 코드 주석과 문서에 재현 가능하게 보존</strong>했습니다. 나중에 같은 아이디어가 그럴듯해 보일 때 다시 시도하는 것을 막기 위해서입니다.</span>
+          <b>수익이 2배가 됐을 때, 실력인지 운인지 재봤습니다</b>
+          <span>적은 종목에 몰아서 사는 방식이 나눠 사는 것보다 <strong>수익이 2배</strong>로 나왔습니다. 좋은 발견 같았지만 <strong>한 번 돌린 결과로는 실력과 운을 구별할 수 없습니다.</strong> 종목 목록에서 70%만 무작위로 뽑아 40번 반복해 성적 분포를 만들었더니, 좋은 결과는 <strong>전부 상위 10%에 몰려 있었고 하위 10%는 조금도 나아지지 않았습니다</strong> — 운이었습니다. 잘 나온 실행 하나만 보고 채택했다면 그대로 실계좌에 들어갔을 것입니다.</span>
         </div></li>
       </ol>
 
       <blockquote class="pullquote">
-        “보수적인 쪽으로 틀리면 안전하다”는 것은 착각이었습니다.
-        상장폐지를 전부 0원으로 처리하면 합병으로 사라진 우량주를 산 전략이 부당하게 벌점을 받습니다.
-        <strong>어느 방향이든 오차는 순위를 바꿉니다.</strong>
-        <cite>— 폐지 손실 모델링 과정에서</cite>
+        “안전한 쪽으로 틀리면 괜찮다”는 것은 착각이었습니다.
+        사라진 회사를 전부 <strong>0원</strong>으로 처리하면, 다른 회사에 인수돼 정상적으로 사라진 우량주를 산 전략이 부당하게 벌점을 받습니다.
+        <strong>어느 방향으로 틀리든 전략의 순위는 바뀝니다.</strong>
+        <cite>— 상장폐지 손실을 어떻게 셀지 정하면서</cite>
       </blockquote>
     </section>
 
