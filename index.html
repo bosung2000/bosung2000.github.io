@@ -76,6 +76,7 @@ section{padding:72px 0;border-top:1px solid var(--rule-soft)}
   text-transform:uppercase;color:var(--muted);margin:0 0 14px}
 h2{font-family:var(--f-display);font-weight:600;font-size:clamp(24px,3.4vw,33px);
   line-height:1.3;letter-spacing:-.01em}
+h2 em{font-style:normal;color:var(--accent)}
 h3{font-family:var(--f-body);font-weight:700;font-size:17px;letter-spacing:-.005em}
 .lede{font-size:17px;color:var(--ink-2);max-width:64ch;margin:16px 0 0}
 p{margin:14px 0 0;max-width:66ch}
@@ -585,8 +586,8 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
     <!-- 03 LLM -->
     <section id="llm">
-      <p class="eyebrow">03 — LLM 파이프라인</p>
-      <h2>공시 원문으로 답하는 종목 분석 AI</h2>
+      <p class="eyebrow">03 — LLM · RAG 파이프라인</p>
+      <h2><em>LLM</em>이 공시를 읽습니다.<br />틀렸을 때 그것을 아는 쪽이 더 어려웠습니다.</h2>
       <p class="lede">
         미국 SEC 공시(10-K / 10-Q)를 근거로 질문에 답하는 시스템입니다.
         <strong>수집 → LLM 압축 → 청킹 → 임베딩 → 검색 → 답변 생성</strong> 전 구간을 직접 설계했고,
@@ -701,8 +702,8 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
     <!-- 04 ML -->
     <section id="ml">
-      <p class="eyebrow">04 — 금융 ML</p>
-      <h2>확률을 내놓는 것보다<br />그 확률을 믿어도 되는지 재는 일</h2>
+      <p class="eyebrow">04 — 금융 머신러닝(ML)</p>
+      <h2><em>머신러닝</em>으로 확률을 내는 것보다<br />그 확률을 믿어도 되는지 재는 일</h2>
       <p class="lede">
         <strong>전략이 신호를 내면 다음 질문은 늘 같았습니다 — "이 신호에 얼마를 걸 것인가."</strong>
         답하려면 확률이 필요한데, 확률을 내는 모델보다 <strong>그 확률을 믿어도 되는지 재는 쪽이 훨씬 어려웠습니다.</strong>
