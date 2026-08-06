@@ -290,28 +290,11 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       </div>
 
       <dl class="figures">
-        <div class="fig"><dt>내가 내린 내 수익률</dt><dd>1,322<span>%</span> → 397<span>%</span></dd></div>
-        <div class="fig"><dt>공개 코드 · 테스트</dt><dd>2.3<span>만 줄</span> · 377<span>건</span></dd></div>
+        <div class="fig"><dt>작성 코드</dt><dd>311,313<span>줄</span></dd></div>
+        <div class="fig"><dt>커밋</dt><dd>1,202<span>회</span></dd></div>
         <div class="fig"><dt>설계 문서</dt><dd>393<span>건</span></dd></div>
         <div class="fig"><dt>기간</dt><dd>5<span>개월</span></dd></div>
       </dl>
-
-      <div class="flow" style="margin-top:44px">
-<pre><b>2020</b>              매매 프로그램을 직접 만들어 <b>제 계좌로 운용</b> — 손실로 끝났다
-<b>2021~2023</b>         퀀트·차트 연구  <i>결과가 좋게 나올 때마다 왜 좋은지를 파고들었다</i>
-<b>2023.07~2025.01</b>   <b>육군 만기 전역</b>
-<b>2025.01~06</b>        국비 교육 수료(Unity 게임개발 6개월)  <i>프로그래밍을 체계적으로 다시</i>
-<b>2025.06~2026.02</b>   게임 개인 프로젝트 시도 — <b>완성하지 못했다.</b> 주식 연구는 계속
-<b>2026.03~</b>          <b>지금 — 아래 다섯 시스템</b>
-</pre>
-      </div>
-
-      <div class="disclose">
-        <span class="dl-tag">먼저 밝힙니다</span>
-        <p><strong>이 코드는 Claude Code를 도구로 써서 작성했습니다.</strong> 5개월간 <strong>31만 줄 · 커밋 1,202회</strong>를 썼는데, 그대로 읽으면 하루 평균 2,000줄입니다. <strong>사람이 손으로 쓸 수 있는 속도가 아닙니다.</strong> 그래서 위 지표에서 줄 수를 뺐고, 실적으로도 내밀지 않겠습니다.</p>
-        <p>대신 내밀 수 있는 것은 이것입니다 — <strong>AI가 내놓은 결과 중 무엇을 기각했는지, 왜 기각했는지, 그리고 그 판단을 다음번에는 사람이 아니라 테스트가 하게 만들려고 무엇을 만들었는지.</strong> 아래에 적힌 발견들은 대부분 AI가 준 답을 제가 의심해서 나온 것입니다.</p>
-        <p>설계 결정·검증 방법·기각 판단은 전부 제가 내렸습니다. <strong>어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</strong> 말로만 드리는 약속이 아니라, <a href="https://github.com/bosung2000/IoTSensorDashboard/blob/main/docs/reliability-lessons.md" rel="noopener" style="color:var(--accent)">공개 저장소의 이 문서</a>에 <strong>제가 낸 결함 12건을 증상·원인·왜 못 봤는지까지</strong> 적어 두었습니다. 지금 열어보실 수 있습니다.</p>
-      </div>
     </header>
 
     <!-- 01 매매 시스템 -->
@@ -914,6 +897,13 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         <span class="rl-desc">이 체계를 문서와 실행 가능한 도구로 정리해 공개했습니다. 커밋 전 API 키를 자동 차단하는 검사기와 훅은 그대로 복사해 쓰실 수 있습니다.</span>
       </a>
     </section>
+
+    <div class="disclose">
+      <span class="dl-tag">먼저 밝힙니다</span>
+      <p><strong>이 코드는 Claude Code를 도구로 써서 작성했습니다.</strong> 맨 위 숫자를 그대로 읽으면 5개월에 31만 줄, 하루 평균 2,000줄입니다. <strong>사람이 손으로 쓸 수 있는 속도가 아닙니다.</strong> 그래서 줄 수 자체를 실적으로 내밀지 않겠습니다.</p>
+      <p>대신 내밀 수 있는 것은 이것입니다 — <strong>AI가 내놓은 결과 중 무엇을 기각했는지, 왜 기각했는지, 그리고 그 판단을 다음번에는 사람이 아니라 테스트가 하게 만들려고 무엇을 만들었는지.</strong> 위에 적힌 발견들은 대부분 AI가 준 답을 제가 의심해서 나온 것입니다.</p>
+      <p>설계 결정·검증 방법·기각 판단은 전부 제가 내렸습니다. <strong>어느 줄이든 왜 그렇게 됐는지 설명드릴 수 있습니다.</strong> 말로만 드리는 약속이 아니라, <a href="https://github.com/bosung2000/IoTSensorDashboard/blob/main/docs/reliability-lessons.md" rel="noopener" style="color:var(--accent)">공개 저장소의 이 문서</a>에 <strong>제가 낸 결함 12건을 증상·원인·왜 못 봤는지까지</strong> 적어 두었습니다. 지금 열어보실 수 있습니다.</p>
+    </div>
 
     <!-- 07 스택 -->
     <section id="stack">
