@@ -545,20 +545,21 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
         <div class="tbl">
           <table>
-            <thead><tr><th>실측 항목</th><th>값</th><th>조건</th></tr></thead>
+            <thead><tr><th>부하</th><th>발행 실측</th><th>워커</th><th>처리 지연</th><th>대기열</th><th>과부하 폐기</th></tr></thead>
             <tbody>
-              <tr><td>발행 (센서 쪽)</td><td class="n"><span class="me">20,000</span> 관측/s</td><td>50ms마다 명부 한 바퀴</td></tr>
-              <tr><td>저장 (수집 쪽)</td><td class="n"><span class="me">약 17,000</span> 이벤트/s</td><td>배치 커밋 · 워커 8</td></tr>
-              <tr><td>처리 지연</td><td class="n">55~65 <span style="color:var(--muted)">µs</span></td><td>폭주(5,000/s) · DB 1.4GB</td></tr>
-              <tr><td>대기열 상한</td><td class="n">150,000 건</td><td>넘으면 폐기하고 <b>센다</b></td></tr>
+              <tr><td>폭주 5,000/s</td><td class="n">4,929 <span style="color:var(--muted)">/s</span></td><td class="n">3</td><td class="n">211.6 <span style="color:var(--muted)">µs</span></td><td class="n"><span class="me">0</span></td><td class="n">없음</td></tr>
+              <tr><td>극한 20,000/s</td><td class="n">16,838 <span style="color:var(--muted)">/s</span></td><td class="n"><span class="me">8</span> <span style="color:var(--muted)">상한</span></td><td class="n">408.6 <span style="color:var(--muted)">µs</span></td><td class="n"><span class="me">149,745</span></td><td class="n"><span class="me">122,018</span> 건</td></tr>
             </tbody>
           </table>
         </div>
+        <p style="font-size:12.5px;color:var(--muted);margin-top:10px">DB 4.0GB 시점 실측. 대기열 상한은 150,000건입니다.</p>
 
         <ul class="what">
-          <li><b>버텼습니다 — 그리고 어디서 막히는지도 알아냈습니다.</b> 병목은 발행이 아니라 <b>저장</b>이었습니다. 초당 2만 건을 던지면 저장이 1만 7천 건에서 상한에 걸리고, 남는 것은 대기열에 쌓이다 폐기됩니다. <b>폐기는 숨기지 않고 세어서 화면에 올립니다.</b></li>
-          <li><b>그래서 센서 몇 대까지 되는지도 계산됩니다.</b> 센서 하나가 <b>들어옴·나감 두 건</b>을 보내므로 분당 1회 보고면 센서당 초당 2/60건입니다. 저장 능력 17,000으로 나누면 <b>약 50만 대</b>가 한계선입니다.</li>
-          <li><b>다만 이 숫자는 저장 능력만 재본 값입니다.</b> 그 규모를 실제로 주장하려면 브로커 연결 수·메모리·센서별 상태 추적도 함께 재봐야 하는데 <b>아직 재보지 않았습니다.</b> 재보지 않은 것을 능력치로 말하지 않습니다.</li>
+          <li><b>폭주(5,000/s)까지는 여유입니다 — 극한(20,000/s)은 받아내지 못합니다.</b> 발행 자체가 목표에 못 미쳐 16,838/s에서 막히고, 그마저도 저장이 못 따라가 <b>대기열이 상한 150,000에 149,745까지 찹니다.</b> 넘친 <b>12만 건은 버리되 세어서 화면에 올립니다</b> — 조용히 사라지는 것이 가장 위험합니다.</li>
+          <li><b>무너지기 전에 워커를 먼저 늘립니다.</b> 대기열이 <b>300건 이상 밀리면 워커를 증설</b>하고, 80건 아래로 내려가면 줄입니다. <b>다 찬 뒤에 늘리면 이미 폐기가 시작된 뒤</b>라서 차기 전에 움직입니다. 실제로 폭주에서는 3개, 극한에서는 상한인 8개까지 올라갔습니다. 줄일 때는 <b>연속으로 한가할 때만</b> 줄입니다 — 경계에서 오가면 스레드를 만들고 죽이는 비용이 처리량을 갉아먹습니다.</li>
+          <li><b>천장이 어디인지도 숫자로 압니다.</b> 워커 상한 8 × 워커당 2,500 = <b>초당 2만 이벤트</b>가 처리 천장입니다. 극한은 메시지 16,765/s × 2(들어옴·나감) ≈ <b>3만 3천 이벤트/s</b>를 요구하니 천장을 넘습니다. <b>설계된 한계에 부딪힌 것</b>이지 예상 못 한 고장이 아닙니다. 상한을 8로 둔 이유는 <b>코어를 다 덮으면 화면이 굶기 때문</b>입니다.</li>
+          <li><b>지연은 단일 값이 아니라 DB 크기에 딸린 값입니다.</b> 같은 폭주 조건에서 DB가 1.4GB일 때 55~65µs였던 것이 <b>4.0GB에서 211.6µs</b>가 됐습니다. 그래서 지연을 말할 때는 <b>DB 크기를 함께 적습니다.</b></li>
+          <li><b>「센서 몇 대까지」도 같은 조건이 붙습니다.</b> 센서 하나가 들어옴·나감 두 건을 보내므로, 분당 1회 보고면 <b>저장 능력 ÷ 2</b>가 수용 대수입니다. DB 1.4GB 기준 17,000 evt/s로 계산하면 약 50만 대인데, <b>DB가 커지면 이 값도 내려갑니다.</b> 브로커 연결 수·메모리는 <b>아직 재보지 않았습니다</b> — 재보지 않은 것을 능력치로 말하지 않습니다.</li>
         </ul>
 
         <div class="stack"><b>C# / .NET 8</b><b>WPF · 직접 렌더링</b><b>MQTT (브로커 내장 · TLS)</b><b>SQLite · WAL · 롤업</b><b>백그라운드 워커</b><b>xUnit 377건</b><b>PowerShell 검증 도구</b></div>
