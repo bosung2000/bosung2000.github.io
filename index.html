@@ -522,6 +522,21 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
           <li><b>같은 것을 두 번 부르지 않습니다.</b> 이미 받은 공시는 요청 자체를 하지 않고, 호출이 거절당하면 예비 키로 넘어가 <b>중단된 지점부터 이어서</b> 진행합니다.</li>
         </ul>
 
+        <div class="shots two">
+          <figure class="shot">
+            <img src="img/llm-chat-single.png" alt="종목 대화 화면 — 답변에 근거 각주가 붙어 있다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>종목 대화 · 근거 표시</b>"경영진의 향후 전망을 정리해줘"에 대한 답변입니다. 중요한 건 답의 내용이 아니라 <strong>문장마다 붙은 각주와 맨 아래 출처 목록</strong>입니다 — 어느 보고서의 어느 항목에서 가져왔는지가 <strong>제출일·문서종류까지</strong> 찍힙니다. 근거를 못 찾으면 지어내지 않고 그렇게 말하도록 했습니다.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/llm-chat-compare.png" alt="두 종목 비교 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>두 회사 비교</b>같은 항목을 두 회사에서 각각 꺼내 나란히 놓습니다. <strong>회계연도가 다르면 비교가 성립하지 않으므로</strong> 어느 해 보고서에서 나온 수치인지를 함께 적게 했습니다.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="img/llm-disclosure-search.png" alt="공시 조회 화면 — 제출 목록과 분석 리포트" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
+            <figcaption><b>공시 조회 · 리포트 생성</b>종목을 넣으면 실제 제출 이력(연차·분기·내부자 거래·대량 보유)을 끌어와 목록으로 놓고, 거기서 분석 리포트를 만듭니다. 왼쪽 탭이 <strong>「어조 변화」·「내용 변화」</strong>인 이유는 <strong>이번 보고서가 지난번과 무엇이 달라졌는지가 실제 신호</strong>이기 때문입니다.</figcaption>
+          </figure>
+        </div>
+
         <h3 style="margin-top:40px">그래서 무엇을 발견했나</h3>
 
         <ol class="findings">
@@ -543,23 +558,22 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
           </div></li>
           <li><span class="mk">▸</span><div>
             <b>API 한도·비용 설계</b>
-            <span>섹션별 토큰 예산, 보일러플레이트 제거, 키 이중화(429/503 시 백업 키 자동 폴백), 수집 로그 기반 재개 — <strong>이미 받은 건 API 호출 자체를 하지 않습니다.</strong> 이 설계로 DART 재무 27,729건을 한도에 한 번도 걸리지 않고 완주했습니다(421만 행).</span>
+            <span>섹션별 토큰 예산, 보일러플레이트 제거, 키 이중화(429/503 시 백업 키 자동 폴백), 수집 로그 기반 재개 — <strong>이미 받은 건 API 호출 자체를 하지 않습니다.</strong> 다만 공시 한 건이 수백 페이지라 <strong>모델에 통과시키는 값이 건수에 그대로 비례합니다.</strong> 줄일 수 있는 데까지 줄여도 이 비례는 사라지지 않았고, 그 결론이 아래에 있습니다.</span>
           </div></li>
         </ol>
-        <div class="shots two">
-          <figure class="shot">
-            <img src="img/llm-chat-single.png" alt="종목 대화 화면 — 답변에 근거 각주가 붙어 있다" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>종목 대화 · 근거 표시</b>"경영진의 향후 전망을 정리해줘"에 대한 답변입니다. 중요한 건 답의 내용이 아니라 <strong>문장마다 붙은 각주와 맨 아래 출처 목록</strong>입니다 — 어느 보고서의 어느 항목에서 가져왔는지가 <strong>제출일·문서종류까지</strong> 찍힙니다. 근거를 못 찾으면 지어내지 않고 그렇게 말하도록 했습니다.</figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="img/llm-chat-compare.png" alt="두 종목 비교 화면" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>두 회사 비교</b>같은 항목을 두 회사에서 각각 꺼내 나란히 놓습니다. <strong>회계연도가 다르면 비교가 성립하지 않으므로</strong> 어느 해 보고서에서 나온 수치인지를 함께 적게 했습니다.</figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="img/llm-disclosure-search.png" alt="공시 조회 화면 — 제출 목록과 분석 리포트" loading="lazy" onerror="var f=this.closest('figure'),g=f.parentNode;f.remove();if(!g.querySelector('figure'))g.remove()" />
-            <figcaption><b>공시 조회 · 리포트 생성</b>종목을 넣으면 실제 제출 이력(연차·분기·내부자 거래·대량 보유)을 끌어와 목록으로 놓고, 거기서 분석 리포트를 만듭니다. 왼쪽 탭이 <strong>「어조 변화」·「내용 변화」</strong>인 이유는 <strong>이번 보고서가 지난번과 무엇이 달라졌는지가 실제 신호</strong>이기 때문입니다.</figcaption>
-          </figure>
-        </div>
+
+        <h3 style="margin-top:40px">그래서 어떻게 됐나</h3>
+
+        <ul class="what">
+          <li><b>미국 공시(SEC) — 구조는 완성했지만 대량 수집은 하지 않았습니다.</b> 설계와 검증까지 끝냈고, 지금 데이터베이스에 있는 것은 <b>검증용 회사 10곳 · 공시 72건</b>입니다. 늘리지 않은 이유는 기술이 아니라 <b>비용</b>입니다. 여기서 멈춰 있다는 사실을 그대로 적어 둡니다.</li>
+          <li><b>한국 공시(DART) — 같은 문제를 LLM 없이 풀었고, 그래서 전수로 갔습니다.</b> XBRL 표준계정ID가 정형으로 제공되니 LLM 파싱이 필요 없고, 필요 없으니 <b>건수에 비례하는 비용이 아예 발생하지 않습니다.</b> <b>보고서 107,745건을 한 건도 실패 없이 완주해 재무 1,163만 행</b>을 쌓았습니다(4.2GB). 이 데이터가 뒤에 나오는 <b>데이터 검증과 백테스트의 재료</b>가 됐습니다.</li>
+        </ul>
+
+        <blockquote class="pullquote">
+          같은 문제였는데 한쪽은 72건에서 멈췄고, 한쪽은 10만 건을 넘겼습니다.
+          갈린 자리는 모델도 코드도 아니라 <strong>LLM을 쓸 것인지 판단한 지점</strong>이었습니다.
+          <cite>— 쓰지 않기로 한 결정도 설계의 일부입니다</cite>
+        </blockquote>
 
         <div class="stack"><b>C# / .NET</b><b>Google Gemini API</b><b>임베딩 · 벡터 검색</b><b>청킹 전략</b><b>프롬프트 엔지니어링</b><b>SEC EDGAR</b><b>DART OpenAPI</b><b>SQLite · Dapper</b><b>xUnit</b></div>
       </article>
