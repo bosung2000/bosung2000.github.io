@@ -713,16 +713,20 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 
       <ol class="findings">
         <li><span class="mk">▸</span><div>
+          <b>하나의 모델로 전부 맞히려 하지 않았습니다</b>
+          <span>종목이 놓인 상태를 <strong>하락 · 횡보 · 상승 세 구간</strong>으로 나누고 <strong>구간마다 모델을 따로 학습</strong>합니다. 아직 진입 전인 하락·횡보 구간에서는 <strong>"박스 고점을 돌파할 것인가"</strong>를, 이미 진입한 상승 구간에서는 <strong>"이 포지션이 이길 것인가 · 목표가에 도달할 것인가 · 손절에 걸릴 것인가"</strong>를 예측합니다. <strong>묻는 질문이 다르면 같은 모델이 답할 수 없습니다.</strong></span>
+        </div></li>
+        <li><span class="mk">▸</span><div>
           <b>CPCV — 누수를 막는 교차검증</b>
           <span>학습·검증 구간이 시간적으로 겹치면 미래 정보가 새어 들어옵니다. <strong>Combinatorial Purged Cross-Validation</strong>으로 구간을 조합하고 경계를 소거해 이를 차단했습니다. 레짐 라벨(강세/약세)과 섹터 층화를 함께 적용해, <strong>특정 시장 국면에서만 통하는 모델</strong>을 골라냅니다.</span>
         </div></li>
         <li><span class="mk">▸</span><div>
           <b>캘리브레이션 — "70%"가 정말 70%인가</b>
-          <span>모델이 0.7이라고 말할 때 실제로 70%가 맞는지를 <strong>reliability diagram과 Brier score</strong>로 측정합니다. 예측 확률이 실제 빈도와 어긋나면 그 숫자로 포지션 크기를 정할 수 없습니다. 시간 구간(60봉/240봉)과 목표(승리 / 2R 도달 / 손절 히트)별로 나눠 리포트를 생성합니다.</span>
+          <span>모델이 0.7이라고 말할 때 실제로 70%가 맞는지를 <strong>reliability diagram과 Brier score</strong>로 측정합니다. 예측 확률이 실제 빈도와 어긋나면 그 숫자로 포지션 크기를 정할 수 없습니다. 시간 구간(60봉/240봉)과 목표(승리 / 2R 도달 / 손절 히트)별로 나눠 리포트를 생성합니다. <strong>강세장과 약세장을 나눠 재보니 결과가 갈렸습니다</strong> — 돌파·손절 예측은 양쪽 다 신뢰할 만했지만 <strong>승리 예측은 약세장에서 오차가 기준을 넘어</strong>, 그 모델은 <strong>강세 구간에서만 켭니다.</strong></span>
         </div></li>
         <li><span class="mk">▸</span><div>
-          <b>특성 수를 늘려도 좋아지지 않는다는 것을 실측</b>
-          <span>25개 · 26개 · 30개 특성 조합으로 각각 리포트를 뽑아 비교했습니다. <strong>ablation study</strong>로 특성을 하나씩 빼보고, <strong>SHAP</strong>으로 기여도를 확인하고, 상관행렬로 중복 특성을 찾았습니다. 결과를 근거로 특성 집합을 결정했습니다.</span>
+          <b>손익비가 더 높은 쪽을 고르지 않았습니다</b>
+          <span>25개 · 26개 · 30개 특성 조합으로 각각 리포트를 뽑아 비교했습니다. <strong>ablation study</strong>로 하나씩 빼보고, <strong>SHAP</strong>으로 기여도를 확인하고, 상관행렬로 중복을 찾았습니다. 손익비만 보면 <strong>30개가 더 높았는데(5.11 대 4.84) 26개를 택했습니다</strong> — 30개짜리는 통과 거래가 155건, 26개짜리는 183건이라 <strong>표본이 크고 낮은 임계값에서도 안정적</strong>이었기 때문입니다. <strong>한 지점의 최고값이 아니라 전 구간의 모양을 보고 골랐습니다.</strong></span>
         </div></li>
         <li><span class="mk">▸</span><div>
           <b>C# ↔ Python 사이드카 구조</b>
@@ -736,7 +740,7 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
         </figure>
         <figure class="shot">
           <img src="img/ml-probability-gate.png" alt="확률 게이트 백테스트 비교 — 원본 대비 필터 적용" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
-          <figcaption><b>모델을 실제로 끼워 본 결과</b>확률이 임계값을 넘을 때만 진입하도록 걸어 3년치를 다시 돌렸습니다. 거래가 <strong>332건 → 20건</strong>으로 줄고 손익비가 <strong>1.96 → 14.77</strong>이 됐습니다. 다만 <strong>20건은 결론을 내기엔 적은 표본</strong>이라, 이 숫자를 성과로 쓰지 않고 <strong>"게이트가 실제로 작동한다"는 확인까지만</strong> 씁니다.</figcaption>
+          <figcaption><b>모델을 끼워 본 화면 — 이 숫자는 쓰지 않습니다</b>진입 후 승리 확률이 임계값을 넘은 거래만 남기는 비교 도구입니다. 화면의 조건은 <strong>임계 70% · 3년 구간 · 「Live 추론」</strong>이고 결과는 332건 → 20건, 손익비 1.96 → 14.77입니다. <strong>이 숫자를 성과로 쓰지 않습니다</strong> — 20건은 표본이 너무 적고, 화면 위쪽에 보이듯 추론 source에 <strong>「CPCV OOS lookup(진짜 OoS)」이 따로 있어 「Live 추론」은 진짜 out-of-sample이 아닙니다.</strong> 아래 「그래서 어떻게 됐나」의 숫자가 <strong>10년 · 3,033종목 · CPCV 기준 표준값</strong>입니다.</figcaption>
         </figure>
         <figure class="shot">
           <img src="img/ml-calibration.png" alt="신뢰도 곡선 — 예측 확률 대비 실제 빈도" loading="lazy" onerror="this.style.display='none';var c=document.createElement('div');c.className='img-miss';c.textContent='이미지를 불러오지 못했습니다 — 아래 설명은 그대로 둡니다';this.parentNode.insertBefore(c,this)" />
@@ -751,9 +755,9 @@ footer p{margin:0;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
       <h3 style="margin-top:40px">그래서 어떻게 됐나</h3>
 
       <ul class="what">
-        <li><b>모델을 백테스트에 실제로 끼워 봤습니다.</b> 확률이 임계값을 넘을 때만 진입하도록 걸어 3년치를 다시 돌렸더니 거래가 <b>332건 → 20건</b>으로 줄고 손익비가 <b>1.96 → 14.77</b>이 됐습니다.</li>
-        <li><b>다만 이것을 성과로 쓰지 않습니다.</b> <b>20건은 결론을 내기엔 적은 표본</b>입니다. 여기서 말할 수 있는 것은 「게이트가 실제로 작동한다」는 확인까지이고, 그 이상은 표본이 쌓인 뒤에 말하겠습니다.</li>
-        <li><b>확률을 그대로 포지션 크기에 쓰지는 않습니다.</b> 신뢰도가 목표·기간 조합마다 다르게 나오기 때문에, <b>어느 조합에서 믿을 만한지를 먼저 재고</b> 그 범위 안에서만 씁니다.</li>
+        <li><b>어느 시점의 예측이 실제로 돈이 되는지를 일곱 가지 방식으로 전부 재봤습니다</b>(3,033종목 × 10년 · CPCV 기준). <b>결과는 예상과 달랐습니다</b> — 진입 전에 「이 종목이 돌파할까」를 맞히는 쪽보다 <b>이미 진입한 뒤 「이 포지션이 이길까」를 맞히는 쪽이 더 나았습니다.</b> 손익비가 아무것도 안 거르면 <b>2.32</b>, 진입 전 예측 <b>3.50</b>, <b>진입 후 예측 4.84</b>. 그래서 진입 후 확률을 표준으로 채택하고 진입 전 예측은 사전 필터로만 남겼습니다. <b>좋아 보이는 자리와 실제로 효과가 있는 자리가 달랐습니다.</b></li>
+        <li><b>가장 좋은 숫자는 제 손으로 버렸습니다.</b> 두 확률을 겹쳐 통과시키는 방식이 손익비 <b>8.30</b>으로 제일 높았는데 통과한 거래가 <b>37건뿐</b>이었습니다. 채택한 쪽은 4.84에 183건입니다. <b>37건으로 낸 8.30은 다음에도 나온다고 말할 수 없어서</b> 운영에 넣지 않고 연구 단계로 남겼습니다. 회귀 방식 두 가지도 같은 이유로 기각했습니다.</li>
+        <li><b>확률을 그대로 포지션 크기에 쓰지는 않습니다.</b> 신뢰도가 목표·기간·시장 국면 조합마다 다르게 나오기 때문에, <b>어느 조합에서 믿을 만한지를 먼저 재고</b> 그 범위 안에서만 씁니다.</li>
       </ul>
 
       <div class="stack"><b>Python 3,554줄</b><b>LightGBM</b><b>scikit-learn</b><b>SHAP</b><b>pandas · numpy</b><b>FastAPI · uvicorn</b><b>pytest</b><b>matplotlib</b></div>
